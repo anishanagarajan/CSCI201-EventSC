@@ -11,11 +11,15 @@ public class ProfileMessage extends Message {
 	ArrayList<String> previousEventIDs;
 	ArrayList<String> myEvents; //events the user created
 	ArrayList<String> myEventIDs;
-	public ProfileMessage(ArrayList<Event> previous, ArrayList<Event> upcoming, User myself){
-		upcomingEvents = new ArrayList<String>();
-		upcomingEventIDs = new ArrayList<String>();
-		previousEvents = new ArrayList<String>();
-		previousEventIDs = new ArrayList<String>();
+	
+	public ProfileMessage(ArrayList<String> previous, ArrayList<String> previousIDs, ArrayListArrayList<String> upcoming, 
+			      ArrayList<String> upcomingIDs, ArrayList<String> my, ArrayList<String> myIDs){
+		upcomingEvents = upcoming;
+		upcomingEventIDs = upcomingIDs;
+		previousEvents = previous;
+		previousEventIDs = previousIDs;
+		myEvents = my;
+		myEventIDs = myIDs;
 		this.action = "ProfileMesssage";
 	}
 	
