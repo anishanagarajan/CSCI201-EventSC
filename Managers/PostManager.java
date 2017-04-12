@@ -8,10 +8,17 @@ public class PostManager {
 	String description;
 	String category;
 	String image;
-
-	public PostManager(float mSessionID, User mUser){
+	int eventID;
+	Date date;
+	int coordinateX;
+	int coordinateY;
+	public PostManager(float mSessionID, User mUser, int mEventID, Date mDate, int mX, int mY){
 		currUser = mUser;
 		sessionID = mSessionID;
+		eventID = mEventID;
+		date = mDate;
+		coordinateX = mX;
+		coordinateY = mY;
 	}
 	public void setTitle(String mTitle){
 		title = mTitle;
@@ -33,6 +40,8 @@ public class PostManager {
 	}
 	public void post(){
 		/*add code here*/
+		Event newEvent = new Event(eventID, title, location, description, date, coordinateX, coordinateY, currUser);
+		dm.addEvent(newEvent);
 	}
 	
 }

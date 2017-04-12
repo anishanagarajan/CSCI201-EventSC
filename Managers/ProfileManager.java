@@ -26,19 +26,19 @@ public class ProfileManager {
 	}
 	public String yourEvents(){
 		String yourEvents="";
-		myEvents = user.getMyEvents();
+		myEvents = dm.getMyEvents(username);
 		/*add code here*/
 		return yourEvents;
 	}
 	public String pastEvents(){
 		String pastEvents="";
-		pastEvents = user.getPastEvents;
+		pastEvents = dm.getPastEvents(username);
 		/*add code here*/
 		return pastEvents;
 	}
 	public String upcomingEvents(){
 		String upcomingEvents="";
-		upcomingEvents = user.getUpcomingEvents();
+		upcomingEvents = dm.getUpcomingEvents(username);
 		/*add code here*/
 		return upcomingEvents;
 	}
