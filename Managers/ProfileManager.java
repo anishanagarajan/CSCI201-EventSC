@@ -25,6 +25,7 @@ public class ProfileManager {
 		upcomingEvents = getUpcomingEvents();
 		upcomingEventIDs = getUpcomingEventIDs();
 		ProfileMessage pm = new ProfileMessage (userInfo, myEvents, myEventIDs, pastEvents, pastEventIDs, upcomingEvents, upcomingEventIDs);
+		//add code here:
 		/*pass the message to server*/
 	}
 	public ArrayList<String> getUserInfo(){
@@ -33,10 +34,10 @@ public class ProfileManager {
 		mUserInfo.add(fname);
 		String lname = user.getLname();
 		mUserInfo.add(lname);
-		String org = user.getOrg();
-		mUserInfo.add(org);
-		String pic = user.getPic();
-		mUserInfo.add(pic);
+		String rating = user.getRating();
+		mUserInfo.add(rating);
+		/*String pic = user.getPic();
+		mUserInfo.add(pic);*/
 		return mUserInfo;
 	}
 	public ArrayList<String> getMyEvents(){
