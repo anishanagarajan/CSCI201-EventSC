@@ -9,7 +9,8 @@ public class ProfileMessage extends Message {
 	ArrayList<String> upcomingEventIDs;
 	ArrayList<String> previousEvents;
 	ArrayList<String> previousEventIDs;
-	
+	ArrayList<String> myEvents; //events the user created
+	ArrayList<String> myEventIDs;
 	public ProfileMessage(ArrayList<Event> previous, ArrayList<Event> upcoming, User myself){
 		upcomingEvents = new ArrayList<String>();
 		upcomingEventIDs = new ArrayList<String>();
