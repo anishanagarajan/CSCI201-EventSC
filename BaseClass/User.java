@@ -3,14 +3,17 @@ package BaseClass;
 import java.util.ArrayList;
 
 public class User {
-	String username, nickname;
+	String username, fname, lname;
 	float rating;
 	ArrayList<Event> previousEvents;
+	ArrayList<Event> myEvents;
 	ArrayList<Event> upcomingEvents;
-	public User(String username, String nickname, float rating){
+	public User(String username, String fname, String lname,float rating){
 		this.username = username;
-		this.nickname = nickname;
+		this.fname = fname;
+		this.lname = lname;
 		this.rating = rating;
+		myEvents = new ArrayList<Event>();
 		previousEvents = new ArrayList<Event>();
 		upcomingEvents = new ArrayList<Event>();
 	}
@@ -20,11 +23,17 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getNickname() {
-		return nickname;
+	public String getFname() {
+		return fname;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public String getLname(){
+		return lname;
+	}
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+	public void setLname(String lname){
+		this.lname = lname;
 	}
 	public float getRating() {
 		return rating;
@@ -37,6 +46,12 @@ public class User {
 	}
 	public void setPreviousEvents(ArrayList<Event> previousEvents) {
 		this.previousEvents = previousEvents;
+	}
+	public ArrayList<Event> getMyEvents() {
+		return myEvents;
+	}
+	public void setPreviousEvents(ArrayList<Event> myEvents) {
+		this.myEvents = myEvents;
 	}
 	public ArrayList<Event> getUpcomingEvents() {
 		return upcomingEvents;
