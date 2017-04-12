@@ -3,7 +3,8 @@ package Message;
 import java.util.ArrayList;
 
 public class ProfileMessage extends Message {
-	String selfName;
+	String fname;
+	String lname;
 	int selfRating;
 	ArrayList<String> upcomingEvents;
 	ArrayList<String> upcomingEventIDs;
@@ -12,8 +13,12 @@ public class ProfileMessage extends Message {
 	ArrayList<String> myEvents; //events the user created
 	ArrayList<String> myEventIDs;
 	
-	public ProfileMessage(ArrayList<String> previous, ArrayList<String> previousIDs, ArrayListArrayList<String> upcoming, 
-			      ArrayList<String> upcomingIDs, ArrayList<String> my, ArrayList<String> myIDs){
+	public ProfileMessage(ArrayList<String> userInfo, ArrayList<String> my, ArrayList<String> myIDs,
+			      ArrayList<String> previous, ArrayList<String> previousIDs, 
+			      ArrayListArrayList<String> upcoming, ArrayList<String> upcomingIDs){
+		fname = userInfo.get(0);
+		lname = userInfo.get(1);
+		selfRating = userInfo.get(2);
 		upcomingEvents = upcoming;
 		upcomingEventIDs = upcomingIDs;
 		previousEvents = previous;
