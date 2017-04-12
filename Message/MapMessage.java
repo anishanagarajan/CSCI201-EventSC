@@ -14,5 +14,8 @@ public class MapMessage extends Message {
 		eventIDs = new ArrayList<String>();
 		this.action = "MapMessage";
 	}
+	public MapMessage (Event event){ //display a specific event on the map
+	}
+	
 	
 }
