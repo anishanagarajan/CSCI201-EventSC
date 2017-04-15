@@ -5,12 +5,12 @@ import java.util.Date;
 public class Event {
 	int eventID;
 	String title, locationString, description;
-	int coordinateX, coordinateY;
+	double coordinateX, coordinateY;
 	User poster;
 	Date date;
 
-	public Event(int eventID, String title, String locationString, String description, Date date, int coordinateX,
-			int coordinateY, User poster) {
+	public Event(int eventID, String title, String locationString, String description, Date date, double coordinateX,
+			double coordinateY, User poster) {
 		this.title = title;
 		this.eventID = eventID;
 		this.locationString = locationString;
@@ -53,19 +53,19 @@ public class Event {
 		this.description = description;
 	}
 
-	public int getCoordinateX() {
+	public double getCoordinateX() {
 		return coordinateX;
 	}
 
-	public void setCoordinateX(int coordinateX) {
+	public void setCoordinateX(double coordinateX) {
 		this.coordinateX = coordinateX;
 	}
 
-	public int getCoordinateY() {
+	public double getCoordinateY() {
 		return coordinateY;
 	}
 
-	public void setCoordinateY(int coordinateY) {
+	public void setCoordinateY(double coordinateY) {
 		this.coordinateY = coordinateY;
 	}
 
