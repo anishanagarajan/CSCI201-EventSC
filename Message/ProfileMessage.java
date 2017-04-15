@@ -7,15 +7,15 @@ public class ProfileMessage extends Message {
 	String lname;
 	int selfRating;
 	ArrayList<String> upcomingEvents;
-	ArrayList<String> upcomingEventIDs;
+	ArrayList<int> upcomingEventIDs;
 	ArrayList<String> previousEvents;
-	ArrayList<String> previousEventIDs;
+	ArrayList<int> previousEventIDs;
 	ArrayList<String> myEvents; //events the user created
-	ArrayList<String> myEventIDs;
+	ArrayList<int> myEventIDs;
 	
-	public ProfileMessage(ArrayList<String> userInfo, ArrayList<String> my, ArrayList<String> myIDs,
-			      ArrayList<String> previous, ArrayList<String> previousIDs, 
-			      ArrayListArrayList<String> upcoming, ArrayList<String> upcomingIDs){
+	public ProfileMessage(ArrayList<String> userInfo, ArrayList<String> my, ArrayList<int> myIDs,
+			      ArrayList<String> previous, ArrayList<int> previousIDs, 
+			      ArrayListArrayList<String> upcoming, ArrayList<int> upcomingIDs){
 		fname = userInfo.get(0);
 		lname = userInfo.get(1);
 		selfRating = userInfo.get(2);
