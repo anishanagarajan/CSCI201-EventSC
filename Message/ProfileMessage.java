@@ -5,20 +5,20 @@ import java.util.ArrayList;
 public class ProfileMessage extends Message {
 	String fname;
 	String lname;
-	int selfRating;
+	// int selfRating;
 	ArrayList<String> upcomingEvents;
-	ArrayList<int> upcomingEventIDs;
+	ArrayList<Integer> upcomingEventIDs;
 	ArrayList<String> previousEvents;
-	ArrayList<int> previousEventIDs;
-	ArrayList<String> myEvents; //events the user created
-	ArrayList<int> myEventIDs;
-	
-	public ProfileMessage(ArrayList<String> userInfo, ArrayList<String> my, ArrayList<int> myIDs,
-			      ArrayList<String> previous, ArrayList<int> previousIDs, 
-			      ArrayListArrayList<String> upcoming, ArrayList<int> upcomingIDs){
+	ArrayList<Integer> previousEventIDs;
+	ArrayList<String> myEvents; // events the user created
+	ArrayList<Integer> myEventIDs;
+
+	public ProfileMessage(ArrayList<String> userInfo, ArrayList<String> my, ArrayList<Integer> myIDs,
+			ArrayList<String> previous, ArrayList<Integer> previousIDs, ArrayList<String> upcoming,
+			ArrayList<Integer> upcomingIDs) {
 		fname = userInfo.get(0);
 		lname = userInfo.get(1);
-		selfRating = userInfo.get(2);
+		// selfRating = userInfo.get(2);
 		upcomingEvents = upcoming;
 		upcomingEventIDs = upcomingIDs;
 		previousEvents = previous;
@@ -27,5 +27,5 @@ public class ProfileMessage extends Message {
 		myEventIDs = myIDs;
 		this.action = "ProfileMesssage";
 	}
-	
+
 }
