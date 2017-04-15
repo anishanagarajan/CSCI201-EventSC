@@ -9,11 +9,9 @@ public class LoginManager {
 		dm = new DatabaseManager();
 		username = mUsername;
 		password = mPassword;
-		login();
 	}
 	public boolean login(){
 		boolean success = false;
-		/*add code here*/
 		success = dm.checkLoginValidation(username, password);
 		return success;
 	}
