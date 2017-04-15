@@ -1,3 +1,9 @@
+package Managers;
+
+import java.util.Date;
+
+import BaseClass.Event;
+import BaseClass.User;
 
 public class ProfileManager {
 	DatabaseManager dm;
