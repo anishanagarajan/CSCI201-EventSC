@@ -67,7 +67,7 @@ public class ProfileManager {
 		ArrayList<Event> myEventsTemp = dm.getEvents(username, false);
 		ArrayList<Event> myPastEvents = null;
 		for (int j = 0; j < myEventsTemp.size();j++){
-			if (myEventsTemp.get(j).eventTime().equals("past"){
+			if (myEventsTemp.get(j).eventTime().equals("past")){
 				myPastEvents.add(myEventsTemp.get(j));
 			}
 		}
@@ -80,7 +80,7 @@ public class ProfileManager {
 		ArrayList<String> myEventIDTemp;
 		ArrayList<Event> myEventsTemp = dm.getEvents(username, false);
 		for (int i = 0; i < myEventsTemp.size(); i++){	
-			if (myEventsTemp.get(i).eventTime().equals("past"){
+			if (myEventsTemp.get(i).eventTime().equals("past")){
 				myEventIDTemp.add(myEventsTemp.get(i).getEventID());
 			}
 		}
@@ -92,7 +92,7 @@ public class ProfileManager {
 		ArrayList<Event> myEventsTemp= dm.getEvents(username, false);
 		ArrayList<Event> myUpcomingEvents = null;
 		for (int j = 0; j < myEventsTemp.size();j++){
-			if (myEventsTemp.get(j).eventTime().equals("upcoming"){
+			if (myEventsTemp.get(j).eventTime().equals("upcoming")){
 				myUpcomingEvents.add(myEventsTemp.get(j));
 			}
 		}
@@ -106,7 +106,7 @@ public class ProfileManager {
 		ArrayList<String> myEventIDTemp;
 		ArrayList<Event> myEventsTemp = dm.getEvents(username, false);
 		for (int i = 0; i < myEventsTemp.size(); i++){	
-			if (myEventsTemp.get(i).eventTime().equals("upcoming"){
+			if (myEventsTemp.get(i).eventTime().equals("upcoming")){
 				myEventIDTemp.add(myEventsTemp.get(i).getEventID());
 			}
 		}
