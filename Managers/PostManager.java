@@ -9,9 +9,9 @@ public class PostManager {
 	String category;
 	String image;
 	Date date;
-	int coordinateX;
-	int coordinateY;
-	public PostManager( User mUser, Date mDate, int mX, int mY){
+	double coordinateX;
+	double coordinateY;
+	public PostManager( User mUser, Date mDate, double mX, double mY){
 		currUser = mUser;
 		date = mDate;
 		coordinateX = mX;
