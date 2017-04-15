@@ -1,3 +1,4 @@
+package Managers;
 
 public class SignupManager {
 	DatabaseManager dm;
