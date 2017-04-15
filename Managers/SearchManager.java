@@ -1,3 +1,6 @@
+package Managers;
+
+import BaseClass.User;
 
 public class SearchManager {
 	float sessionID;
