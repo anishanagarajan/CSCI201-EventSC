@@ -1,7 +1,6 @@
 package Managers;
 
-public class PostManager {
-	float sessionID;
+public class PostManager { 
 	User currUser;
 	String title;
 	String time;
@@ -9,14 +8,11 @@ public class PostManager {
 	String description;
 	String category;
 	String image;
-	 
 	Date date;
 	int coordinateX;
 	int coordinateY;
-	public PostManager(float mSessionID, User mUser, Date mDate, int mX, int mY){
+	public PostManager( User mUser, Date mDate, int mX, int mY){
 		currUser = mUser;
-		sessionID = mSessionID;
-		 
 		date = mDate;
 		coordinateX = mX;
 		coordinateY = mY;
