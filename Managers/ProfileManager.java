@@ -13,9 +13,9 @@ public class ProfileManager {
 	ArrayList<String> myEvents;
 	ArrayList<String> pastEvents;
 	ArrayList<String> upcomingEvents;
-	ArrayList<String> myEventIDs;
-	ArrayList<String> pastEventIDs;
-	ArrayList<String> upcomingEventIDs;
+	ArrayList<int> myEventIDs;
+	ArrayList<int> pastEventIDs;
+	ArrayList<int> upcomingEventIDs;
 	ArrayList<String> userInfo;
 	
 	public ProfileManager(float mSessionID, String mUsername){
@@ -54,8 +54,8 @@ public class ProfileManager {
 		}
 		return myEventsTempString;
 	}
-	public ArrayList<String> getMyEventIDs(){
-		ArrayList<String> myEventIDTemp;
+	public ArrayList<int> getMyEventIDs(){
+		ArrayList<int> myEventIDTemp;
 		ArrayList<Event> myEventsTemp = dm.getEvents(username,true);
 		for (int i = 0; i < myEventsTemp.size(); i++){		 
 			myEventIDTemp.add(myEventsTemp.get(i).getEventID());
@@ -76,8 +76,8 @@ public class ProfileManager {
 		}
 		return myEventsTempString;
 	}
-	public ArrayList<String> getPastEventIDs(){
-		ArrayList<String> myEventIDTemp;
+	public ArrayList<int> getPastEventIDs(){
+		ArrayList<int> myEventIDTemp;
 		ArrayList<Event> myEventsTemp = dm.getEvents(username, false);
 		for (int i = 0; i < myEventsTemp.size(); i++){	
 			if (myEventsTemp.get(i).eventTime().equals("past")){
@@ -101,9 +101,8 @@ public class ProfileManager {
 		}
 		return myEventsTempString;
 	}
-	public ArrayList<String> getUpcomingEventIDs(){
-		 
-		ArrayList<String> myEventIDTemp;
+	public ArrayList<int> getUpcomingEventIDs(){		 
+		ArrayList<int> myEventIDTemp;
 		ArrayList<Event> myEventsTemp = dm.getEvents(username, false);
 		for (int i = 0; i < myEventsTemp.size(); i++){	
 			if (myEventsTemp.get(i).eventTime().equals("upcoming")){
