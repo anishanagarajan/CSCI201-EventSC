@@ -48,7 +48,7 @@ public class ProfileManager {
 	}
 	public ArrayList<String> getMyEvents(){
 		ArrayList<String> myEventsTempString;
-		ArrayList<Event> myEventsTemp = dm.getMyEvents(username, "present");
+		ArrayList<Event> myEventsTemp = dm.getEvents(username,true);
 		for (int i = 0; i < myEventsTemp.size(); i++){
 			myEventsTempString.add(myEventsTemp.get(i).getTitle());		 
 		}
@@ -56,44 +56,59 @@ public class ProfileManager {
 	}
 	public ArrayList<String> getMyEventIDs(){
 		ArrayList<String> myEventIDTemp;
-		ArrayList<Event> myEventsTemp = dm.getMyEvents(username, "present");
+		ArrayList<Event> myEventsTemp = dm.getEvents(username,true);
 		for (int i = 0; i < myEventsTemp.size(); i++){		 
 			myEventIDTemp.add(myEventsTemp.get(i).getEventID());
 		}
 		return myEventIDTemp;
 	}
 	public ArrayList<String> getPastEvents(){
-		 
 		ArrayList<String> myEventsTempString;
-		ArrayList<Event> myEventsTemp = dm.getMyEvents(username, "past");
-		for (int i = 0; i < myEventsTemp.size(); i++){
-			myEventsTempString.add(myEventsTemp.get(i).getTitle());		 
+		ArrayList<Event> myEventsTemp = dm.getEvents(username, false);
+		ArrayList<Event> myPastEvents = null;
+		for (int j = 0; j < myEventsTemp.size();j++){
+			if (myEventsTemp.get(j).eventTime().equals("past"){
+				myPastEvents.add(myEventsTemp.get(j));
+			}
+		}
+		for (int i = 0; i < myPastEvents.size(); i++){
+			myEventsTempString.add(myPastEvents.get(i).getTitle());		 
 		}
 		return myEventsTempString;
 	}
 	public ArrayList<String> getPastEventIDs(){
 		ArrayList<String> myEventIDTemp;
-		ArrayList<Event> myEventsTemp = dm.getMyEvents(username, "past");
-		for (int i = 0; i < myEventsTemp.size(); i++){		 
-			myEventIDTemp.add(myEventsTemp.get(i).getEventID());
+		ArrayList<Event> myEventsTemp = dm.getEvents(username, false);
+		for (int i = 0; i < myEventsTemp.size(); i++){	
+			if (myEventsTemp.get(i).eventTime().equals("past"){
+				myEventIDTemp.add(myEventsTemp.get(i).getEventID());
+			}
 		}
 		return myEventIDTemp;
 	}
 	public ArrayList<String> getUpcomingEvents(){
 		 
 		ArrayList<String> myEventsTempString;
-		ArrayList<Event> myEventsTemp= dm.getMyEvents(username, "upcoming");
-		for (int i = 0; i < myEventsTemp.size(); i++){
-			myEventsTempString.add(myEventsTemp.get(i).getTitle());		 
+		ArrayList<Event> myEventsTemp= dm.getEvents(username, false);
+		ArrayList<Event> myUpcomingEvents = null;
+		for (int j = 0; j < myEventsTemp.size();j++){
+			if (myEventsTemp.get(j).eventTime().equals("upcoming"){
+				myUpcomingEvents.add(myEventsTemp.get(j));
+			}
+		}
+		for (int i = 0; i < myUpcomingEvents.size(); i++){
+			myEventsTempString.add(myUpcomingEvents.get(i).getTitle());		 
 		}
 		return myEventsTempString;
 	}
 	public ArrayList<String> getUpcomingEventIDs(){
 		 
 		ArrayList<String> myEventIDTemp;
-		ArrayList<Event> myEventsTemp = dm.getMyEvents(username, "upcoming");
-		for (int i = 0; i < myEventsTemp.size(); i++){		 
-			myEventIDTemp.add(myEventsTemp.get(i).getEventID());
+		ArrayList<Event> myEventsTemp = dm.getEvents(username, false);
+		for (int i = 0; i < myEventsTemp.size(); i++){	
+			if (myEventsTemp.get(i).eventTime().equals("upcoming"){
+				myEventIDTemp.add(myEventsTemp.get(i).getEventID());
+			}
 		}
 		return myEventIDTemp;
 	}
