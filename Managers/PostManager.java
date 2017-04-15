@@ -3,7 +3,7 @@ package Managers;
 public class PostManager { 
 	User currUser;
 	String title;
-	String time;
+	 
 	String location;
 	String description;
 	String category;
@@ -20,9 +20,7 @@ public class PostManager {
 	public void setTitle(String mTitle){
 		title = mTitle;
 	}
-	public void setTime(String mTime){
-		time = mTime;
-	}
+	 
 	public void setLocation(String mLocation){
 		location = mLocation;
 	}
