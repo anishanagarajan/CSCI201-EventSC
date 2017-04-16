@@ -17,9 +17,10 @@ public class MapManager {
 		populateMap();
 	}
 
-	public void populateMap() {
+	public MapMessage populateMap() {
 		events = (ArrayList<Event>) dm.requestAllEvents();
 		MapMessage mm = new MapMessage(events);
+		return mm;
 	}
 
 	/*public Event getEvent(int X, int Y) { // get a particular event when the user clicks a pin
