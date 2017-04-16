@@ -355,6 +355,33 @@ public class DatabaseManager {
 		return user;
 	}
 
+	public Event getEventObject(int eventID) {
+		Connection conn = null;
+		Event event = null;
+		try {
+			// dyanamically load a class at runtime
+			Class.forName("com.mysql.jdbc.Driver");
+			// connect with the driver
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/EventSC?user=root&password=root&useSSL=false");
+			event = createEventObject(eventID, conn);
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			System.out.println("sqle: " + sqle.getMessage() + "sdsd");
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("cnfe: " + cnfe.getMessage());
+		} finally {
+			// always close connection to database
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing: " + sqle.getMessage());
+			}
+		}
+		return event;
+	}
+
 	// get all events connected to a user
 	public ArrayList<Event> getEvents(String username, boolean create) {
 		Connection conn = null;
@@ -444,9 +471,9 @@ public class DatabaseManager {
 	// add an event to the database
 	public void addEvent(Event newEvent) {
 		Connection conn = null;
-		PreparedStatement preparedStmt = null;
 		Statement st = null;
 		ResultSet rs = null;
+		PreparedStatement preparedStmt = null;
 		PreparedStatement preparedStmt2 = null;
 		try {
 			// dyanamically load a class at runtime
@@ -619,5 +646,44 @@ public class DatabaseManager {
 			}
 		}
 		return events;
+	}
+
+	public void attendEvent(User user, Event event) {
+		Connection conn = null;
+		PreparedStatement preparedStmt = null;
+		try {
+			// dyanamically load a class at runtime
+			Class.forName("com.mysql.jdbc.Driver");
+			// connect with the driver
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/EventSC?user=root&password=root&useSSL=false");
+			int userID = user.getUserID();
+			int eventID = event.getEventID();
+			// create the mysql insert statement
+			String query = "INSERT INTO User_Event_Participated (userID, eventID)" + "VALUES (?, ?)";
+			// create the insert preparedstatement
+			preparedStmt = conn.prepareStatement(query);
+			// input values
+			preparedStmt.setInt(1, userID);
+			preparedStmt.setInt(2, eventID);
+			// execute
+			preparedStmt.executeUpdate();
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			System.out.println("sqle: " + sqle.getMessage() + "sdsd");
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("cnfe: " + cnfe.getMessage());
+		} finally {
+			// always close connection to database
+			try {
+				if (preparedStmt != null) {
+					preparedStmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing: " + sqle.getMessage());
+			}
+		}
 	}
 }
