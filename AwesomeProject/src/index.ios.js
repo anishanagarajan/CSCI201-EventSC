@@ -22,7 +22,8 @@ import Main from './main.js';
 import Search from './search.js';
 import Post from './post.js';
 import Profile from './profile.js';
-
+import Map from './map.js';
+import Event from './event.js';
 
 export default class AwesomeProject extends Component {
     render() {
@@ -52,7 +53,7 @@ export default class AwesomeProject extends Component {
                 />
                 
                 <Scene
-                key="guest"
+                key="main"
                 component={Main}
                 title="Welcome"
                 
@@ -79,7 +80,19 @@ export default class AwesomeProject extends Component {
                 
                 />
                 
+                <Scene
+                key="map"
+                component={Map}
+                title="Map"
                 
+                />
+                
+                <Scene
+                key="event"
+                component={Event}
+                title="Event"
+                
+                />
                 
                 
                 </Router>

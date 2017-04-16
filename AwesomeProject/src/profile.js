@@ -20,7 +20,7 @@ export default class Profile extends Component {
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
-                <Text style={styles.title}>EVENT PLANNER NAME</Text>
+            <Text style={styles.title}>{this.props.eventId}</Text>
             </View>
             
             <View style={styles.optionsContainer}>

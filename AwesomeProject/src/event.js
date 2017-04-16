@@ -15,19 +15,23 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 
-import Main from './main.js';
-
-
-export default class Login extends Component {
+export default class Event extends Component {
     constructor() {
         super()
+        var eventMessage = this.props.eventInfo;
+        var obj = JSON.parse(eventMessage);
         
         this.state = {
-        username: "",
-        password: ""
-        }
+        eventName: obj.title,
+        host: obj.posterName,
+            
+        };
+        
+        
     }
     
+    
+    //networking
     async onLoginPressed(){
         try{
             let response = await fetch('http://10.120.108.158:8080/FinalP/GeneralServlet', {
@@ -37,58 +41,56 @@ export default class Login extends Component {
                                        'Content-Type': 'application/json',
                                        },
                                        body: JSON.stringify({
-                                                            requestType: 'Login',
-                                                            username: this.state.username,
-                                                            password: this.state.password,
+                                                            requestType: 'Event',
+                                                            eventName: this.state.eventName,
+                                                            month: this.state.month,
+                                                            date: this.state.date,
+                                                            year: this.state.year,
+                                                            hours: this.state.hours,
+                                                            minutes: this.state.minutes,
+                                                            location: this.state.location,
+                                                            description: this.state.description,
+                                                            category: this.state.category,
                                                             })
                                        });
             let res = await response.text();
             console.log(res);
             var obj = JSON.parse(res);
             if (obj.ifSuccess) {
-                Actions.main();
+                console.log("created event!");
+                //Actions.event();
             }
             else {
-                console.log("wrong pass");
+                //show error
             }
             
         }catch(error){
             console.error(error);
         }
     }
-    
+
     render() {
         return (
-                <View style={styles.container}>
+        <View style={styles.container}>
                 <View style={styles.titleContainer}>
-                <Text style={styles.title}>EventSC</Text>
-                </View>
-                
-                <View style={styles.formContainer}>
-                <TextInput
-                onChangeText= { (text)=> this.setState({username: text})}
-                style={styles.input}
-                placeholder="username"
-                placeholderTextColor="rgba(255,255,255,0.7)"
-                
-                />
-                <TextInput
-                onChangeText= { (text)=> this.setState({password: text})}
-                placeholder="password"
-                placeholderTextColor="rgba(255,255,255,0.7)"
-                secureTextEntry
-                style={styles.input}
-                />
+                <Text style={styles.title}>{this.state.eventName}</Text>
                 </View>
                 
                 <View style={styles.optionsContainer}>
                 <TouchableOpacity
-                onPress={() => this.onLoginPressed()}
-                style={styles.buttonsContainer}><Text style={styles.button}>Login</Text></TouchableOpacity>
-                </View>
+                //onPress={() => Actions.pastEvents()}
+                style={styles.buttonsContainer}><Text style={styles.button}>Past</Text></TouchableOpacity>
+                
+                <TouchableOpacity
+                //onPress={() => Actions.myEvents()}
+                style={styles.buttonsContainer}><Text style={styles.button}>My Events</Text></TouchableOpacity>
+                
+                <TouchableOpacity
+                //onPress={() => Actions.upcomingEvents()}
+                style={styles.buttonsContainer}><Text style={styles.button}>Upcoming</Text></TouchableOpacity>
                 </View>
                 
-                
+                </View>
                 );
     }
 }
@@ -131,4 +133,4 @@ const styles = StyleSheet.create({
                                  
                                  });
 
-module.exports = Login;
+module.exports = Event;

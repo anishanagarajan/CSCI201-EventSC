@@ -18,9 +18,10 @@ import {Actions} from 'react-native-router-flux';
 import Search from './search.js';
 import Profile from './profile.js';
 import Post from './post.js';
-
+import Map from './map.js';
 
 export default class Main extends Component {
+    
   render() {
     return (
       <View style={styles.container}>
@@ -30,7 +31,7 @@ export default class Main extends Component {
             
             <View style={styles.optionsContainer}>
             <TouchableOpacity
-            onPress={() => Actions.profile()}
+            onPress={() => Actions.profile({eventId:"hello world"})}
             style={styles.buttonsContainer}><Text style={styles.button}>Profile</Text></TouchableOpacity>
             
             <TouchableOpacity
@@ -38,8 +39,8 @@ export default class Main extends Component {
             style={styles.buttonsContainer}><Text style={styles.button}>Post</Text></TouchableOpacity>
             
             <TouchableOpacity
-            onPress={() => Actions.search()}
-            style={styles.buttonsContainer}><Text style={styles.button}>Search</Text></TouchableOpacity>
+            onPress={() => Actions.map()}
+            style={styles.buttonsContainer}><Text style={styles.button}>Map</Text></TouchableOpacity>
             </View>
      </View>
 

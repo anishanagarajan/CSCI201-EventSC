@@ -6,72 +6,119 @@
 
 import React, { Component } from 'react';
 import {
-
-  StyleSheet,
-  Text,
-  View,
+    
+    StyleSheet,
+    Text,
+    View,
     TouchableOpacity,
     TextInput
 } from 'react-native';
-import {Router, Scene} from 'react-native-router-flux';
+import {Actions} from 'react-native-router-flux';
 
 export default class Signup extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-            <View style={styles.titleContainer}>
+    constructor() {
+        super()
+        
+        this.state = {
+        fname: "",
+        lname: "",
+        username: "",
+        password: ""
+        }
+    }
+    
+    async onLoginPressed(){
+        try{
+            let response = await fetch('http://10.120.108.158:8080/FinalP/GeneralServlet', {
+                                       method: 'POST',
+                                       headers: {
+                                       'Accept': 'application/json',
+                                       'Content-Type': 'application/json',
+                                       },
+                                       body: JSON.stringify({
+                                                            requestType: 'SignUp',
+                                                            fname: this.state.fname,
+                                                            lname: this.state.lname,
+                                                            username: this.state.username,
+                                                            password: this.state.password,
+                                                            })
+                                       });
+            let res = await response.text();
+            console.log(res);
+            var obj = JSON.parse(res);
+            if (obj.ifSuccess) {
+                Actions.main();
+            }
+            else {
+                //show error
+            }
+            
+        }catch(error){
+            console.error(error);
+        }
+    }
+    
+    
+    render() {
+        return (
+                <View style={styles.container}>
+                <View style={styles.titleContainer}>
                 <Text style={styles.title}>EventSC</Text>
-            </View>
-            
-            <View style={styles.formContainer}>
-            <TextInput style={styles.input}
-            placeholder="first name"
-            placeholderTextColor="rgba(255,255,255,0.7)"
-            
-            />
-            
-            <TextInput style={styles.input}
-            placeholder="last name"
-            placeholderTextColor="rgba(255,255,255,0.7)"
-            
-            />
-            
-            <TextInput style={styles.input}
-                    placeholder="username"
-                    placeholderTextColor="rgba(255,255,255,0.7)"
-            
+                </View>
+                
+                <View style={styles.formContainer}>
+                <TextInput
+                onChangeText= { (text)=> this.setState({fname: text})}
+                style={styles.input}
+                placeholder="first name"
+                placeholderTextColor="rgba(255,255,255,0.7)"
+                
+                />
+                
+                <TextInput
+                onChangeText= { (text)=> this.setState({lname: text})}
+                style={styles.input}
+                placeholder="last name"
+                placeholderTextColor="rgba(255,255,255,0.7)"
+                
+                />
+                
+                <TextInput
+                onChangeText= { (text)=> this.setState({username: text})}
+                style={styles.input}
+                placeholder="username"
+                placeholderTextColor="rgba(255,255,255,0.7)"
+                
                 />
                 <TextInput
+                onChangeText= { (text)=> this.setState({password: text})}
                 placeholder="password"
                 placeholderTextColor="rgba(255,255,255,0.7)"
                 secureTextEntry
                 style={styles.input}
                 />
-            <TextInput
-            placeholder="confirm password"
-            placeholderTextColor="rgba(255,255,255,0.7)"
-            secureTextEntry
-            style={styles.input}
-            />
-            </View>
-            
-            <View style={styles.optionsContainer}>
-               <TouchableOpacity style={styles.buttonsContainer}><Text style={styles.button}>Sign Up</Text></TouchableOpacity>
-            </View>
-     </View>
-
-            
-    );
-  }
+                
+                </View>
+                
+                <View style={styles.optionsContainer}>
+                <TouchableOpacity
+                onPress={() => this.onLoginPressed()}
+                style={styles.buttonsContainer}><Text style={styles.button}>Sign Up</Text></TouchableOpacity>
+                </View>
+                </View>
+                
+                
+                );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#3498db',
-  },
+                                 container: {
+                                 flex: 1,
+                                 justifyContent: 'center',
+                                 alignItems: 'center',
+                                 backgroundColor: '#3498db',
+                                 },
                                  title: {
                                  color: '#FFF',
                                  fontSize: 30,
@@ -81,7 +128,7 @@ const styles = StyleSheet.create({
                                  padding: 20,
                                  },
                                  buttonsContainer: {
-                                    backgroundColor: '#2980b9',
+                                 backgroundColor: '#2980b9',
                                  padding: 10,
                                  
                                  
@@ -98,9 +145,9 @@ const styles = StyleSheet.create({
                                  paddingHorizontal: 10,
                                  },
                                  
-                                
                                  
                                  
-  });
+                                 
+                                 });
 
 module.exports = Signup;
