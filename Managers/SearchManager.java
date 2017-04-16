@@ -1,5 +1,6 @@
 package Managers;
 
+import BaseClass.Event;
 import BaseClass.User;
 
 public class SearchManager {
