@@ -6,11 +6,11 @@ public class Event {
 	int eventID;
 	String title, locationString, description;
 	float coordinateX, coordinateY;
-	User poster;
+	String poster;
 	Date date;
 
 	public Event(String title, String locationString, String description, Date date, float coordinateX,
-			float coordinateY, User poster) {
+			float coordinateY, String poster) {
 		this.title = title;
 		this.locationString = locationString;
 		this.description = description;
@@ -76,11 +76,11 @@ public class Event {
 		this.date = date;
 	}
 
-	public User getPoster() {
+	public String getPoster() {
 		return poster;
 	}
 
-	public void setPoster(User poster) {
+	public void setPoster(String poster) {
 		this.poster = poster;
 	}
 
