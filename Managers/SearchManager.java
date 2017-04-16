@@ -3,25 +3,17 @@ package Managers;
 import BaseClass.User;
 
 public class SearchManager {
-	float sessionID;
 	User user;
 	String searchParameter;
-	String username;
+	String searchType;
 	DatabaseManager dm;
 	
-	public SearchManager(float mSessionID, String mUsername){
-		username = mUsername;
-		user = dm.getUser(username);
-		sessionID = mSessionID;
+	public SearchManager(String searchParameter, String searchType){
+		this.searchParameter = searchParameter;
+		this.searchType = searchType;		 
 		dm = new DatabaseManager();
 	}
-	public void setSearchParameter(String mSearchParameter){
-		searchParameter = mSearchParameter;
-	}
-	public String searchResult(){
-		String searchResults="";
-		/*add code here*/
-		dm.getSearchEvents(searchParameter);
-		return searchResults;
+	public ArrayList<Event> search(String searchType, String searchParameter){
+		dm.search(searchType, searchParameter);
 	}
 }
