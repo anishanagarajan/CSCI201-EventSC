@@ -20,7 +20,11 @@ public class SearchManager {
 	}
 
 	public ArrayList<Event> search() {
-		resultEvents = dm.search(searchType, searchParameter);
+		if (searchType.equals("user")) {
+			resultEvents = dm.searchByUser(searchParameter);
+		} else if (searchType.equals("event")) {
+			resultEvents = dm.searchByEvent(searchParameter);
+		}
 		return resultEvents;
 	}
 }
