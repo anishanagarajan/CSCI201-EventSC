@@ -1,0 +1,78 @@
+package Managers;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+import BaseClass.Event;
+
+public class test {
+
+	private static void loginTest() {
+		// TODO Auto-generated method stub
+		LoginManager lm = new LoginManager("Sheldon", "Cooper");
+		if (lm.login()) {
+			System.out.println("logged in");
+		} else {
+			System.out.println("no");
+		}
+		LoginManager lm2 = new LoginManager("Sheldon", "Coopasdfr");
+		if (lm2.login()) {
+			System.out.println("logged in");
+		} else {
+			System.out.println("no");
+		}
+	}
+
+	private static void signupTest() {
+		SignupManager sm = new SignupManager("Sheldon1", "abcd", "asd", "asdf");
+		if (sm.signup()) {
+			System.out.println("signed up");
+		} else {
+			System.out.println("no");
+		}
+
+		SignupManager sm2 = new SignupManager("Sheldon", "abcd", "asd", "asdf");
+		if (sm.signup()) {
+			System.out.println("signed up");
+		} else {
+			System.out.println("no");
+		}
+	}
+
+	private static void postTest() {
+		Date date = new Date();
+		PostManager pm = new PostManager("Sheldon1", date, 3, 4);
+		pm.setTitle("dogs");
+		pm.setLocation("parkside");
+		pm.setDescription("free food at parkside");
+		pm.setCategory("free, food");
+		pm.post();
+	}
+
+	private static void searchTest() {
+		SearchManager sm = new SearchManager("user", "sheldon1");
+		ArrayList<Event> events = sm.search();
+		for (int i = 0; i < events.size(); i++) {
+			System.out.println(events.get(i).getTitle());
+		}
+
+		// SearchManager sm2 = new SearchManager("event", "dogs");
+		// ArrayList<Event> events2 = sm2.search();
+		// for (int i = 0; i < events.size(); i++) {
+		// System.out.println(events2.get(i).getTitle());
+		// }
+	}
+
+	private static void mapTest() {
+		MapManager mm = new MapManager();
+	}
+
+	public static void main(String[] args) {
+		loginTest();
+		signupTest();
+		postTest();
+		searchTest();
+		mapTest();
+	}
+
+}
