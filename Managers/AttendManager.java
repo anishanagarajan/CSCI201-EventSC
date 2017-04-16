@@ -1,16 +1,21 @@
 package Managers;
 
-public class AttendManager { 
+import BaseClass.Event;
+import BaseClass.User;
+
+public class AttendManager {
 	User user;
 	Event event;
-	 
-	public AttendManager(User user, Event event){
+	DatabaseManager dm;
+
+	public AttendManager(User user, Event event) {
+		dm = new DatabaseManager();
 		this.user = user;
 		this.event = event;
 	}
-	 
-	public void attend(){
-		dm.attendEvent(event,user);
+
+	public void attend() {
+		dm.attendEvent(user, event);
 	}
-	
+
 }
