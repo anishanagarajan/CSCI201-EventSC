@@ -3,6 +3,10 @@ package Message;
 import java.util.ArrayList;
 
 public class ProfileMessage extends Message {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String fname;
 	String lname;
 	// int selfRating;
