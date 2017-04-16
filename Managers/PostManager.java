@@ -6,7 +6,7 @@ import BaseClass.Event;
 import BaseClass.User;
 
 public class PostManager {
-	User currUser;
+	String currUser;
 	String title;
 	String time;
 	String location;
@@ -18,7 +18,7 @@ public class PostManager {
 	float coordinateY;
 	DatabaseManager dm;
 
-	public PostManager(User mUser, Date mDate, float mX, float mY) {
+	public PostManager(String mUser, Date mDate, float mX, float mY) {
 		currUser = mUser;
 		date = mDate;
 		coordinateX = mX;
