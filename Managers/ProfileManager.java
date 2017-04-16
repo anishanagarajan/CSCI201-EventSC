@@ -7,7 +7,6 @@ import BaseClass.User;
 
 public class ProfileManager {
 	DatabaseManager dm;
-	float sessionID;
 	String username;
 	User user;
 	ArrayList<String> myEvents;
@@ -18,9 +17,8 @@ public class ProfileManager {
 	ArrayList<int> upcomingEventIDs;
 	ArrayList<String> userInfo;
 	
-	public ProfileManager(float mSessionID, String mUsername){
+	public ProfileManager(String mUsername){
 		username = mUsername;
-		sessionID = mSessionID;
 		dm = new DatabaseManager();
 		user = dm.getUserInfo(username);
 		userInfo = getUserInfo();
