@@ -18,12 +18,12 @@ public class MapManager {
 	}
 
 	public void populateMap() {
-		events = (ArrayList<Event>) dm.requestEvents();
+		events = (ArrayList<Event>) dm.requestAllEvents();
 		MapMessage mm = new MapMessage(events);
 	}
 
-	public Event getEvent(int X, int Y) { // get a particular event when the user clicks a pin
+	/*public Event getEvent(int X, int Y) { // get a particular event when the user clicks a pin
 		Event event = dm.getEvent(X, Y);
 		MapMessage mm = new MapMessage(event);
-	}
+	}*/
 }
