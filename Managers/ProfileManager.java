@@ -28,13 +28,13 @@ public class ProfileManager {
 		pastEvents = getPastEvents();
 		pastEventIDs = getPastEventIDs();
 		upcomingEvents = getUpcomingEvents();
-		upcomingEventIDs = getUpcomingEventIDs();
+		upcomingEventIDs = getUpcomingEventIDs();	 
+	}
+	public ProfileMessage getProfile(){
 		ProfileMessage pm = new ProfileMessage(userInfo, myEvents, myEventIDs, pastEvents, pastEventIDs, upcomingEvents,
 				upcomingEventIDs);
-		// add code here:
-		/* pass the message to server */
+		return pm;
 	}
-
 	public ArrayList<String> getUserInfo() {
 		ArrayList<String> mUserInfo = new ArrayList<>();
 		String fname = user.getFname();
