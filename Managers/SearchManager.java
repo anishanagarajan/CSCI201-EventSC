@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import BaseClass.Event;
 import BaseClass.User;
+import Message.SearchMessage;
 
 public class SearchManager {
 	User user;
@@ -19,12 +20,13 @@ public class SearchManager {
 		resultEvents = new ArrayList<Event>();
 	}
 
-	public ArrayList<Event> search() {
+	public SearchMessage search() {
 		if (searchType.equals("user")) {
 			resultEvents = dm.searchByUser(searchParameter);
 		} else if (searchType.equals("event")) {
 			resultEvents = dm.searchByEvent(searchParameter);
 		}
-		return resultEvents;
+		SearchMessage sm = new SearchMessage(resultEvents);
+		return sm;
 	}
 }
