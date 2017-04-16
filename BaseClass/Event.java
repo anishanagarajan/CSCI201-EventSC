@@ -75,7 +75,7 @@ public class Event {
 		this.date = date;
 	}
 
-	public String getUsername() {
+	public String getPoster() {
 		return username;
 	}
 
