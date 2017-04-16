@@ -7,13 +7,15 @@ public class SearchManager {
 	String searchParameter;
 	String searchType;
 	DatabaseManager dm;
+	ArrayList<Event> resultEvents;
 	
 	public SearchManager(String searchParameter, String searchType){
 		this.searchParameter = searchParameter;
 		this.searchType = searchType;		 
 		dm = new DatabaseManager();
+		resultEvents = new ArrayList<Event>();
 	}
 	public ArrayList<Event> search(String searchType, String searchParameter){
-		dm.search(searchType, searchParameter);
+		resultEvents = dm.search(searchType, searchParameter);
 	}
 }
