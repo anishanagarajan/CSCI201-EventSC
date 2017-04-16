@@ -9,10 +9,9 @@ public class Event {
 	User poster;
 	Date date;
 
-	public Event(int eventID, String title, String locationString, String description, Date date, float coordinateX,
+	public Event(String title, String locationString, String description, Date date, float coordinateX,
 			float coordinateY, User poster) {
 		this.title = title;
-		this.eventID = eventID;
 		this.locationString = locationString;
 		this.description = description;
 		this.coordinateX = coordinateX;
@@ -57,7 +56,7 @@ public class Event {
 		return coordinateX;
 	}
 
-	public void setCoordinateX(float coordinateX) {
+	public void setCoordinateX(int coordinateX) {
 		this.coordinateX = coordinateX;
 	}
 
@@ -65,7 +64,7 @@ public class Event {
 		return coordinateY;
 	}
 
-	public void setCoordinateY(float coordinateY) {
+	public void setCoordinateY(int coordinateY) {
 		this.coordinateY = coordinateY;
 	}
 
