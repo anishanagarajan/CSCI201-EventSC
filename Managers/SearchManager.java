@@ -20,6 +20,7 @@ public class SearchManager {
 		resultEvents = dm.search(searchType, searchParameter);
 		SearchMessage = new SearchMessage(resultsEvents);
 		/*add code here to pass to front end*/
+		/*need to check if resultEvent is null*/
 		return resultEvents;
 	}
 }
