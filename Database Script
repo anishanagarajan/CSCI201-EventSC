@@ -1,0 +1,40 @@
+DROP DATABASE IF EXISTS EventSC;
+CREATE DATABASE EventSC;
+
+USE EventSC;
+
+CREATE TABLE UserTable (
+	userID INT(11) PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+	pass VARCHAR(50) NOT NULL,
+    fname VARCHAR(50) NOT NULL,
+    lname VARCHAR(50) NOT NULL,
+    rating FLOAT(10)
+);
+    
+CREATE TABLE EventTable (
+	eventID INT(11) PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(50) NOT NULL,
+    location VARCHAR(50) NOT NULL,
+    description VARCHAR(2000) NOT NULL,
+    posterID INT(11) NOT NULL,
+    dateEvent VARCHAR(19) NOT NULL,
+    coordinateX FLOAT(10) NOT NULL,
+	coordinateY FLOAT(10) NOT NULL
+); 
+
+CREATE TABLE User_Event_Created (
+	userID INT(11)  NOT NULL,
+    eventID INT(11) NOT NULL,
+    FOREIGN KEY fk1(userID) REFERENCES UserTable(userID),
+    FOREIGN KEY fk2(eventID) REFERENCES EventTable(eventID),
+    CONSTRAINT tb_PK PRIMARY KEY (userID, eventID)
+);
+
+CREATE TABLE User_Event_Participated (
+	userID INT(11)  NOT NULL,
+    eventID INT(11) NOT NULL,
+    FOREIGN KEY fk1(userID) REFERENCES UserTable(userID),
+    FOREIGN KEY fk2(eventID) REFERENCES EventTable(eventID),
+    CONSTRAINT tb_PK PRIMARY KEY (userID, eventID)
+);
