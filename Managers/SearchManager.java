@@ -16,7 +16,7 @@ public class SearchManager {
 		dm = new DatabaseManager();
 		resultEvents = new ArrayList<Event>();
 	}
-	public ArrayList<Event> search(String searchType, String searchParameter){
+	public ArrayList<Event> search(){
 		resultEvents = dm.search(searchType, searchParameter);
 		SearchMessage = new SearchMessage(resultsEvents);
 		/*add code here to pass to front end*/
