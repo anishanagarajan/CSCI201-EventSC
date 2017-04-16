@@ -488,7 +488,7 @@ public class DatabaseManager {
 			String dateString = formatter.format(date);
 			float coordinateX = newEvent.getCoordinateX();
 			float coordinateY = newEvent.getCoordinateY();
-			String username = newEvent.getUsername();
+			String username = newEvent.getPoster();
 			int posterID = getUserID(username, conn);
 			// create the mysql insert statement
 			String query = "INSERT INTO EventTable (title, location, description, dateEvent, coordinateX, coordinateY, posterID)"
