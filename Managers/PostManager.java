@@ -4,7 +4,7 @@ import java.util.Date;
 
 import BaseClass.Event;
 import BaseClass.User;
-import Message;
+import Message.EventMessage;
 
 public class PostManager {
 	String currUser;
