@@ -1,4 +1,5 @@
 package Managers;
+import Message.LoginMessage;
 
 public class LoginManager {
 	DatabaseManager dm;
@@ -10,10 +11,10 @@ public class LoginManager {
 		username = mUsername;
 		password = mPassword;
 	}
-	public boolean login(){
-		boolean success = false;
-		success = dm.checkLoginValidation(username, password);
-		return success;
+	public LoginMessage login(){
+		boolean success = dm.checkLoginValidation(username, password);
+		LoginMessage lm = new LoginMessage(success);
+		return lm;
 	}
 	 
 }
