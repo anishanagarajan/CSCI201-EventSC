@@ -1,9 +1,10 @@
 package Managers;
 
-import java.util.Date;
+import java.util.ArrayList;
 
 import BaseClass.Event;
 import BaseClass.User;
+import Message.ProfileMessage;
 
 public class ProfileManager {
 	DatabaseManager dm;
@@ -12,15 +13,15 @@ public class ProfileManager {
 	ArrayList<String> myEvents;
 	ArrayList<String> pastEvents;
 	ArrayList<String> upcomingEvents;
-	ArrayList<int> myEventIDs;
-	ArrayList<int> pastEventIDs;
-	ArrayList<int> upcomingEventIDs;
+	ArrayList<Integer> myEventIDs;
+	ArrayList<Integer> pastEventIDs;
+	ArrayList<Integer> upcomingEventIDs;
 	ArrayList<String> userInfo;
-	
-	public ProfileManager(String mUsername){
+
+	public ProfileManager(String mUsername) {
 		username = mUsername;
 		dm = new DatabaseManager();
-		user = dm.getUserInfo(username);
+		user = dm.getUser(username);
 		userInfo = getUserInfo();
 		myEvents = getMyEvents();
 		myEventIDs = getMyEventIDs();
@@ -28,87 +29,94 @@ public class ProfileManager {
 		pastEventIDs = getPastEventIDs();
 		upcomingEvents = getUpcomingEvents();
 		upcomingEventIDs = getUpcomingEventIDs();
-		ProfileMessage pm = new ProfileMessage (userInfo, myEvents, myEventIDs, pastEvents, pastEventIDs, upcomingEvents, upcomingEventIDs);
-		//add code here:
-		/*pass the message to server*/
+		ProfileMessage pm = new ProfileMessage(userInfo, myEvents, myEventIDs, pastEvents, pastEventIDs, upcomingEvents,
+				upcomingEventIDs);
+		// add code here:
+		/* pass the message to server */
 	}
-	public ArrayList<String> getUserInfo(){
-		ArrayList<String> mUserInfo;
+
+	public ArrayList<String> getUserInfo() {
+		ArrayList<String> mUserInfo = new ArrayList<>();
 		String fname = user.getFname();
 		mUserInfo.add(fname);
 		String lname = user.getLname();
 		mUserInfo.add(lname);
-		String rating = user.getRating();
-		mUserInfo.add(rating);
-		/*String pic = user.getPic();
-		mUserInfo.add(pic);*/
+		// String rating = user.getRating();
+		// mUserInfo.add(rating);
+		/*
+		 * String pic = user.getPic(); mUserInfo.add(pic);
+		 */
 		return mUserInfo;
 	}
-	public ArrayList<String> getMyEvents(){
-		ArrayList<String> myEventsTempString;
-		ArrayList<Event> myEventsTemp = dm.getEvents(username,true);
-		for (int i = 0; i < myEventsTemp.size(); i++){
-			myEventsTempString.add(myEventsTemp.get(i).getTitle());		 
+
+	public ArrayList<String> getMyEvents() {
+		ArrayList<String> myEventsTempString = new ArrayList<>();
+		ArrayList<Event> myEventsTemp = dm.getEvents(username, true);
+		for (int i = 0; i < myEventsTemp.size(); i++) {
+			myEventsTempString.add(myEventsTemp.get(i).getTitle());
 		}
 		return myEventsTempString;
 	}
-	public ArrayList<int> getMyEventIDs(){
-		ArrayList<int> myEventIDTemp;
-		ArrayList<Event> myEventsTemp = dm.getEvents(username,true);
-		for (int i = 0; i < myEventsTemp.size(); i++){		 
+
+	public ArrayList<Integer> getMyEventIDs() {
+		ArrayList<Integer> myEventIDTemp = new ArrayList<>();
+		ArrayList<Event> myEventsTemp = dm.getEvents(username, true);
+		for (int i = 0; i < myEventsTemp.size(); i++) {
 			myEventIDTemp.add(myEventsTemp.get(i).getEventID());
 		}
 		return myEventIDTemp;
 	}
-	public ArrayList<String> getPastEvents(){
-		ArrayList<String> myEventsTempString;
+
+	public ArrayList<String> getPastEvents() {
+		ArrayList<String> myEventsTempString = new ArrayList<>();
 		ArrayList<Event> myEventsTemp = dm.getEvents(username, false);
 		ArrayList<Event> myPastEvents = null;
-		for (int j = 0; j < myEventsTemp.size();j++){
-			if (myEventsTemp.get(j).eventTime().equals("past")){
+		for (int j = 0; j < myEventsTemp.size(); j++) {
+			if (myEventsTemp.get(j).eventTime().equals("past")) {
 				myPastEvents.add(myEventsTemp.get(j));
 			}
 		}
-		for (int i = 0; i < myPastEvents.size(); i++){
-			myEventsTempString.add(myPastEvents.get(i).getTitle());		 
+		for (int i = 0; i < myPastEvents.size(); i++) {
+			myEventsTempString.add(myPastEvents.get(i).getTitle());
 		}
 		return myEventsTempString;
 	}
-	public ArrayList<int> getPastEventIDs(){
-		ArrayList<int> myEventIDTemp;
+
+	public ArrayList<Integer> getPastEventIDs() {
+		ArrayList<Integer> myEventIDTemp = new ArrayList<>();
 		ArrayList<Event> myEventsTemp = dm.getEvents(username, false);
-		for (int i = 0; i < myEventsTemp.size(); i++){	
-			if (myEventsTemp.get(i).eventTime().equals("past")){
+		for (int i = 0; i < myEventsTemp.size(); i++) {
+			if (myEventsTemp.get(i).eventTime().equals("past")) {
 				myEventIDTemp.add(myEventsTemp.get(i).getEventID());
 			}
 		}
 		return myEventIDTemp;
 	}
-	public ArrayList<String> getUpcomingEvents(){
-		 
-		ArrayList<String> myEventsTempString;
-		ArrayList<Event> myEventsTemp= dm.getEvents(username, false);
+
+	public ArrayList<String> getUpcomingEvents() {
+		ArrayList<String> myEventsTempString = new ArrayList<>();
+		ArrayList<Event> myEventsTemp = dm.getEvents(username, false);
 		ArrayList<Event> myUpcomingEvents = null;
-		for (int j = 0; j < myEventsTemp.size();j++){
-			if (myEventsTemp.get(j).eventTime().equals("upcoming")){
+		for (int j = 0; j < myEventsTemp.size(); j++) {
+			if (myEventsTemp.get(j).eventTime().equals("upcoming")) {
 				myUpcomingEvents.add(myEventsTemp.get(j));
 			}
 		}
-		for (int i = 0; i < myUpcomingEvents.size(); i++){
-			myEventsTempString.add(myUpcomingEvents.get(i).getTitle());		 
+		for (int i = 0; i < myUpcomingEvents.size(); i++) {
+			myEventsTempString.add(myUpcomingEvents.get(i).getTitle());
 		}
 		return myEventsTempString;
 	}
-	public ArrayList<int> getUpcomingEventIDs(){		 
-		ArrayList<int> myEventIDTemp;
+
+	public ArrayList<Integer> getUpcomingEventIDs() {
+		ArrayList<Integer> myEventIDTemp = new ArrayList<>();
 		ArrayList<Event> myEventsTemp = dm.getEvents(username, false);
-		for (int i = 0; i < myEventsTemp.size(); i++){	
-			if (myEventsTemp.get(i).eventTime().equals("upcoming")){
+		for (int i = 0; i < myEventsTemp.size(); i++) {
+			if (myEventsTemp.get(i).eventTime().equals("upcoming")) {
 				myEventIDTemp.add(myEventsTemp.get(i).getEventID());
 			}
 		}
 		return myEventIDTemp;
 	}
-	
 
 }
