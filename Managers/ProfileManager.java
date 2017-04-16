@@ -74,11 +74,10 @@ public class ProfileManager {
 		for (int j = 0; j < myEventsTemp.size(); j++) {
 			if (myEventsTemp.get(j).eventTime().equals("past")) {
 				myPastEvents.add(myEventsTemp.get(j));
+				myEventsTempString.add(myEventsTemp.get(j).getTitle());
 			}
 		}
-		for (int i = 0; i < myPastEvents.size(); i++) {
-			myEventsTempString.add(myPastEvents.get(i).getTitle());
-		}
+		 
 		return myEventsTempString;
 	}
 
@@ -100,11 +99,10 @@ public class ProfileManager {
 		for (int j = 0; j < myEventsTemp.size(); j++) {
 			if (myEventsTemp.get(j).eventTime().equals("upcoming")) {
 				myUpcomingEvents.add(myEventsTemp.get(j));
+				myEventsTempString.add(myEventsTemp.get(j).getTitle());
 			}
 		}
-		for (int i = 0; i < myUpcomingEvents.size(); i++) {
-			myEventsTempString.add(myUpcomingEvents.get(i).getTitle());
-		}
+		 
 		return myEventsTempString;
 	}
 
