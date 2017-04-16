@@ -18,5 +18,8 @@ public class SearchManager {
 	}
 	public ArrayList<Event> search(String searchType, String searchParameter){
 		resultEvents = dm.search(searchType, searchParameter);
+		SearchMessage = new SearchMessage(resultsEvents);
+		/*add code here to pass to front end*/
+		return resultEvents;
 	}
 }
