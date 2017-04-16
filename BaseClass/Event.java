@@ -4,20 +4,19 @@ import java.util.Date;
 
 public class Event {
 	int eventID;
-	String title, locationString, description;
+	String title, locationString, description, username;
 	float coordinateX, coordinateY;
-	String poster;
 	Date date;
 
 	public Event(String title, String locationString, String description, Date date, float coordinateX,
-			float coordinateY, String poster) {
+			float coordinateY, String username) {
 		this.title = title;
 		this.locationString = locationString;
 		this.description = description;
 		this.coordinateX = coordinateX;
 		this.coordinateY = coordinateY;
 		this.date = date;
-		this.poster = poster;
+		this.username = username;
 	}
 
 	public String getTitle() {
@@ -76,12 +75,12 @@ public class Event {
 		this.date = date;
 	}
 
-	public String getPoster() {
-		return poster;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setPoster(String poster) {
-		this.poster = poster;
+	public void setPoster(String username) {
+		this.username = username;
 	}
 
 	public String eventTime() {
