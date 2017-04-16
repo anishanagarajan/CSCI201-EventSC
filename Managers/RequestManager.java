@@ -1,4 +1,4 @@
-
+package Managers;
 import BaseClass.Event;
 import BaseClass.User;
 import Message.EventMessage;
