@@ -9,7 +9,7 @@ public class EventMessage extends Message {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String title, location, description, posterName, posterID;
+	String title, location, description, posterName, posterUsername;
 	int coordinateX, coordinateY, posterRating;
 	
 	public EventMessage(Event event, User user){
