@@ -15,7 +15,6 @@ public class MapManager {
 	public MapManager(String mUser) { // we prolly don't need the user object
 		currUser = mUser;
 		dm = new DatabaseManager();
-		populateMap();
 	}
 
 	public MapMessage populateMap() {
