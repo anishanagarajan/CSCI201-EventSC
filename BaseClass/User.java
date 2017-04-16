@@ -6,8 +6,8 @@ public class User {
 	int userID;
 	String username, fname, lname;
 	// float rating;
+	ArrayList<Event> myEvents;
 	ArrayList<Event> previousEvents;
-	ArrayList<Event> currentEvents;
 	ArrayList<Event> upcomingEvents;
 
 	public User(int userID, String username, String fname, String lname) {
@@ -16,8 +16,8 @@ public class User {
 		this.fname = fname;
 		this.lname = lname;
 		// this.rating = rating;
+		myEvents = new ArrayList<Event>();
 		previousEvents = new ArrayList<Event>();
-		currentEvents = new ArrayList<Event>();
 		upcomingEvents = new ArrayList<Event>();
 	}
 
@@ -77,12 +77,12 @@ public class User {
 		this.previousEvents = previousEvents;
 	}
 
-	public ArrayList<Event> getCurrentEvents() {
-		return currentEvents;
+	public ArrayList<Event> getMyEvents() {
+		return myEvents;
 	}
 
-	public void setCurrentEvents(ArrayList<Event> currentEvents) {
-		this.currentEvents = currentEvents;
+	public void setMyEvents(ArrayList<Event> myEvents) {
+		this.myEvents = myEvents;
 	}
 
 	public ArrayList<Event> getUpcomingEvents() {
@@ -92,4 +92,5 @@ public class User {
 	public void setUpcomingEvents(ArrayList<Event> upcomingEvents) {
 		this.upcomingEvents = upcomingEvents;
 	}
+
 }
