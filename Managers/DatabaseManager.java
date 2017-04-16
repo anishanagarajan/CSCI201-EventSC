@@ -20,16 +20,11 @@ public class DatabaseManager {
 	public DatabaseManager() {
 	}
 
-	private int getUserID(String username) {
-		Connection conn = null;
+	private int getUserID(String username, Connection conn) {
 		Statement st = null;
 		ResultSet rs = null;
 		int userID = -1;
 		try {
-			// dyanamically load a class at runtime
-			Class.forName("com.mysql.jdbc.Driver");
-			// connect with the driver
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/EventSC?user=root&password=root&useSSL=false");
 			st = conn.createStatement();
 			// mysql Select statement
 			String newUsername = username.toLowerCase();
@@ -38,9 +33,8 @@ public class DatabaseManager {
 				userID = rs.getInt("userID");
 			}
 		} catch (SQLException sqle) {
+			sqle.printStackTrace();
 			System.out.println("sqle: " + sqle.getMessage());
-		} catch (ClassNotFoundException cnfe) {
-			System.out.println("cnfe: " + cnfe.getMessage());
 		} finally {
 			// always close connection to database
 			try {
@@ -49,9 +43,6 @@ public class DatabaseManager {
 				}
 				if (st != null) {
 					st.close();
-				}
-				if (conn != null) {
-					conn.close();
 				}
 			} catch (SQLException sqle) {
 				System.out.println("sqle closing: " + sqle.getMessage());
@@ -60,16 +51,11 @@ public class DatabaseManager {
 		return userID;
 	}
 
-	private String getUsername(int userID) {
-		Connection conn = null;
+	private String getUsername(int userID, Connection conn) {
 		Statement st = null;
 		ResultSet rs = null;
 		String username = null;
 		try {
-			// dyanamically load a class at runtime
-			Class.forName("com.mysql.jdbc.Driver");
-			// connect with the driver
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/EventSC?user=root&password=root&useSSL=false");
 			st = conn.createStatement();
 			// mysql Select statement
 			rs = st.executeQuery("SELECT username FROM UserTable WHERE userID='" + userID + "';");
@@ -77,9 +63,8 @@ public class DatabaseManager {
 				username = rs.getString("username");
 			}
 		} catch (SQLException sqle) {
+			sqle.printStackTrace();
 			System.out.println("sqle: " + sqle.getMessage());
-		} catch (ClassNotFoundException cnfe) {
-			System.out.println("cnfe: " + cnfe.getMessage());
 		} finally {
 			// always close connection to database
 			try {
@@ -89,9 +74,6 @@ public class DatabaseManager {
 				if (st != null) {
 					st.close();
 				}
-				if (conn != null) {
-					conn.close();
-				}
 			} catch (SQLException sqle) {
 				System.out.println("sqle closing: " + sqle.getMessage());
 			}
@@ -99,15 +81,52 @@ public class DatabaseManager {
 		return username;
 	}
 
-	private Event createEventObject(int eventID) {
-		Connection conn = null;
+	// return the user's past, current, upcoming events depending on when
+	// paramater
+	private ArrayList<Event> getEventList(String username, boolean created, Connection conn) {
+		Statement st = null;
+		ResultSet rs = null;
+		ArrayList<Event> events = new ArrayList<>();
+		try {
+			st = conn.createStatement();
+			// mysql Select statement
+			username.toLowerCase();
+			int userID = getUserID(username, conn);
+			// get the list of eventID from certain table
+			if (created) {
+				rs = st.executeQuery("SELECT * FROM User_Event_Created WHERE userID='" + userID + "';");
+			} else {
+				rs = st.executeQuery("SELECT * FROM User_Event_Participated WHERE userID='" + userID + "';");
+			}
+			while (rs.next()) {
+				int eventID = rs.getInt("eventID");
+				Event event = createEventObject(eventID, conn);
+				events.add(event);
+			}
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			// always close connection to database
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing: " + sqle.getMessage());
+			}
+		}
+		return events;
+	}
+
+	private Event createEventObject(int eventID, Connection conn) {
 		Statement st = null;
 		ResultSet rs = null;
 		// dyanamically load a class at runtime
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			// connect with the driver
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/EventSC?user=root&password=root&useSSL=false");
 			// get the event info then add it to events list
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM EventTable WHERE eventID='" + eventID + "';");
@@ -117,21 +136,18 @@ public class DatabaseManager {
 				String description = rs.getString("description");
 				String dateString = rs.getString("dateEvent");
 				// parse date data
-				SimpleDateFormat formatter = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss");
+				SimpleDateFormat formatter = new SimpleDateFormat("MM.dd.yyyy HH:mm");
 				Date date = formatter.parse(dateString);
 				int coordinateX = rs.getInt("coordinateX");
 				int coordinateY = rs.getInt("coordinateY");
 				// create user object from posterID
 				int posterID = rs.getInt("posterID");
-				String posterName = getUsername(posterID);
-				User user = getUser(posterName);
-				Event event = new Event(title, location, description, date, coordinateX, coordinateY, user);
+				String username = getUsername(posterID, conn);
+				Event event = new Event(title, location, description, date, coordinateX, coordinateY, username);
+				;
 				event.setEventID(eventID);
 				return event;
 			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -147,9 +163,6 @@ public class DatabaseManager {
 				if (st != null) {
 					st.close();
 				}
-				if (conn != null) {
-					conn.close();
-				}
 			} catch (SQLException sqle) {
 				System.out.println("sqle closing: " + sqle.getMessage());
 			}
@@ -157,6 +170,58 @@ public class DatabaseManager {
 		return null;
 	}
 
+	// get user object with username
+	private User createUserObject(String username, Connection conn) {
+		Statement st = null;
+		ResultSet rs = null;
+		User user = null;
+		try {
+			st = conn.createStatement();
+			// mysql Select statement
+			String newUsername = username.toLowerCase();
+			rs = st.executeQuery("SELECT * FROM UserTable WHERE username='" + newUsername + "';");
+			while (rs.next()) {
+				int userID = rs.getInt("userID");
+				String fname = rs.getString("fname");
+				String lname = rs.getString("lname");
+				// String nickname = rs.getString("nickname");
+				// float rating = rs.getFloat("rating");
+				user = new User(userID, username, fname, lname);
+				ArrayList<Event> myEvents = getEventList(username, true, conn);
+				ArrayList<Event> participatedEvents = getEventList(username, false, conn);
+				ArrayList<Event> previousEvents = new ArrayList<>();
+				ArrayList<Event> upcomingEvents = new ArrayList<>();
+				for (int i = 0; i < participatedEvents.size(); i++) {
+					if (participatedEvents.get(i).eventTime().equals("past")) {
+						previousEvents.add(participatedEvents.get(i));
+					} else {
+						upcomingEvents.add(participatedEvents.get(i));
+					}
+				}
+				user.setMyEvents(myEvents);
+				user.setPreviousEvents(previousEvents);
+				user.setUpcomingEvents(upcomingEvents);
+			}
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			System.out.println("sqle: " + sqle.getMessage());
+		} finally {
+			// always close connection to database
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing: " + sqle.getMessage());
+			}
+		}
+		return user;
+	}
+
+	// public functions
 	public boolean checkLoginValidation(String username, String password) {
 		Connection conn = null;
 		Statement st = null;
@@ -180,6 +245,7 @@ public class DatabaseManager {
 				return true;
 			}
 		} catch (SQLException sqle) {
+			sqle.printStackTrace();
 			System.out.println("sqle: " + sqle.getMessage());
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -236,6 +302,7 @@ public class DatabaseManager {
 			// execute
 			preparedStmt.executeUpdate();
 		} catch (SQLException sqle) {
+			sqle.printStackTrace();
 			System.out.println("sqle: " + sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println("cnfe: " + cnfe.getMessage());
@@ -261,56 +328,23 @@ public class DatabaseManager {
 		return true;
 	}
 
-	// get user object with username
 	public User getUser(String username) {
 		Connection conn = null;
-		Statement st = null;
-		ResultSet rs = null;
 		User user = null;
 		try {
 			// dyanamically load a class at runtime
 			Class.forName("com.mysql.jdbc.Driver");
 			// connect with the driver
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/EventSC?user=root&password=root&useSSL=false");
-			st = conn.createStatement();
-			// mysql Select statement
-			String newUsername = username.toLowerCase();
-			rs = st.executeQuery("SELECT * FROM UserTable WHERE username='" + newUsername + "';");
-			while (rs.next()) {
-				int userID = rs.getInt("userID");
-				String fname = rs.getString("fname");
-				String lname = rs.getString("lname");
-				// String nickname = rs.getString("nickname");
-				// float rating = rs.getFloat("rating");
-				user = new User(userID, username, fname, lname);
-				ArrayList<Event> myEvents = getEvents(username, true);
-				ArrayList<Event> participatedEvents = getEvents(username, false);
-				ArrayList<Event> previousEvents = new ArrayList<>();
-				ArrayList<Event> upcomingEvents = new ArrayList<>();
-				for (int i = 0; i < participatedEvents.size(); i++) {
-					if (participatedEvents.get(i).eventTime().equals("past")) {
-						previousEvents.add(participatedEvents.get(i));
-					} else {
-						upcomingEvents.add(participatedEvents.get(i));
-					}
-				}
-				user.setMyEvents(myEvents);
-				user.setPreviousEvents(previousEvents);
-				user.setUpcomingEvents(upcomingEvents);
-			}
+			user = createUserObject(username, conn);
 		} catch (SQLException sqle) {
+			sqle.printStackTrace();
 			System.out.println("sqle: " + sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println("cnfe: " + cnfe.getMessage());
 		} finally {
 			// always close connection to database
 			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (st != null) {
-					st.close();
-				}
 				if (conn != null) {
 					conn.close();
 				}
@@ -321,8 +355,36 @@ public class DatabaseManager {
 		return user;
 	}
 
+	// get all events connected to a user
+	public ArrayList<Event> getEvents(String username, boolean create) {
+		Connection conn = null;
+		ArrayList<Event> events = null;
+		try {
+			// dyanamically load a class at runtime
+			Class.forName("com.mysql.jdbc.Driver");
+			// connect with the driver
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/EventSC?user=root&password=root&useSSL=false");
+			events = getEventList(username, create, conn);
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			System.out.println("sqle: " + sqle.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("cnfe: " + cnfe.getMessage());
+		} finally {
+			// always close connection to database
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException sqle) {
+				System.out.println("sqle closing: " + sqle.getMessage());
+			}
+		}
+		return events;
+	}
+
 	// get all of the current events
-	public List<Event> requestEvents() {
+	public List<Event> requestAllEvents() {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
@@ -342,18 +404,18 @@ public class DatabaseManager {
 				String description = rs.getString("description");
 				String dateString = rs.getString("dateEvent");
 				// parse date data
-				SimpleDateFormat formatter = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss");
+				SimpleDateFormat formatter = new SimpleDateFormat("MM.dd.yyyy HH:mm");
 				Date date = formatter.parse(dateString);
 				int coordinateX = rs.getInt("coordinateX");
 				int coordinateY = rs.getInt("coordinateY");
 				int posterID = rs.getInt("posterID");
-				String username = getUsername(posterID);
-				User user = getUser(username);
-				Event event = new Event(title, location, description, date, coordinateX, coordinateY, user);
+				String username = getUsername(posterID, conn);
+				Event event = new Event(title, location, description, date, coordinateX, coordinateY, username);
 				event.setEventID(eventID);
 				events.add(event);
 			}
 		} catch (SQLException sqle) {
+			sqle.printStackTrace();
 			System.out.println("sqle: " + sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println("cnfe: " + cnfe.getMessage());
@@ -386,21 +448,21 @@ public class DatabaseManager {
 		Statement st = null;
 		ResultSet rs = null;
 		PreparedStatement preparedStmt2 = null;
-		String title = newEvent.getTitle();
-		String location = newEvent.getLocationString();
-		String description = newEvent.getDescription();
-		Date date = newEvent.getDate();
-		SimpleDateFormat formatter = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss");
-		String dateString = formatter.format(date);
-		float coordinateX = newEvent.getCoordinateX();
-		float coordinateY = newEvent.getCoordinateY();
-		User poster = newEvent.getPoster();
-		int posterID = poster.getUserID();
 		try {
 			// dyanamically load a class at runtime
 			Class.forName("com.mysql.jdbc.Driver");
 			// connect with the driver
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/EventSC?user=root&password=root&useSSL=false");
+			String title = newEvent.getTitle();
+			String location = newEvent.getLocationString();
+			String description = newEvent.getDescription();
+			Date date = newEvent.getDate();
+			SimpleDateFormat formatter = new SimpleDateFormat("MM.dd.yyyy HH:mm");
+			String dateString = formatter.format(date);
+			float coordinateX = newEvent.getCoordinateX();
+			float coordinateY = newEvent.getCoordinateY();
+			String username = newEvent.getUsernamer();
+			int posterID = getUserID(username, conn);
 			// create the mysql insert statement
 			String query = "INSERT INTO EventTable (title, location, description, dateEvent, coordinateX, coordinateY, posterID)"
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -440,6 +502,7 @@ public class DatabaseManager {
 			preparedStmt2.executeUpdate();
 
 		} catch (SQLException sqle) {
+			sqle.printStackTrace();
 			System.out.println("sqle: " + sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println("cnfe: " + cnfe.getMessage());
@@ -455,6 +518,9 @@ public class DatabaseManager {
 				if (preparedStmt != null) {
 					preparedStmt.close();
 				}
+				if (preparedStmt2 != null) {
+					preparedStmt.close();
+				}
 				if (conn != null) {
 					conn.close();
 				}
@@ -464,9 +530,8 @@ public class DatabaseManager {
 		}
 	}
 
-	// return the user's past, current, upcoming events depending on when
-	// paramater
-	public ArrayList<Event> getEvents(String username, boolean created) {
+	// add an event to the database
+	public ArrayList<Event> searchByUser(String searchParameter) {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
@@ -478,21 +543,18 @@ public class DatabaseManager {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/EventSC?user=root&password=root&useSSL=false");
 			st = conn.createStatement();
 			// mysql Select statement
-			username.toLowerCase();
-			int userID = getUserID(username);
-			// get the list of eventID from certain table
-			if (created) {
-				rs = st.executeQuery("SELECT * FROM User_Event_Created WHERE userID='" + userID + "';");
-			} else {
-				rs = st.executeQuery("SELECT * FROM User_Event_Participated WHERE userID='" + userID + "';");
-			}
+			searchParameter.toLowerCase();
+			int userID = getUserID(searchParameter, conn);
+			rs = st.executeQuery("SELECT * FROM EventTable WHERE posterID='" + userID + "';");
+			// get the list of eventIDS
 			while (rs.next()) {
 				int eventID = rs.getInt("eventID");
-				Event event = createEventObject(eventID);
+				Event event = createEventObject(eventID, conn);
 				events.add(event);
 			}
 		} catch (SQLException sqle) {
-			System.out.println("sqle: " + sqle.getMessage());
+			sqle.printStackTrace();
+			System.out.println("sqle: " + sqle.getMessage() + "sdsd");
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println("cnfe: " + cnfe.getMessage());
 		} finally {
@@ -515,7 +577,7 @@ public class DatabaseManager {
 	}
 
 	// add an event to the database
-	public ArrayList<Event> search(String searchType, String searchParameter) {
+	public ArrayList<Event> searchByEvent(String searchParameter) {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
@@ -528,19 +590,16 @@ public class DatabaseManager {
 			st = conn.createStatement();
 			// mysql Select statement
 			searchParameter.toLowerCase();
-			if (searchType.equals("user")) {
-				int userID = getUserID(searchParameter);
-				rs = st.executeQuery("SELECT * FROM EventTable WHERE posterID='" + userID + "';");
-			} else if (searchType.equals("event")) {
-				rs = st.executeQuery("SELECT * FROM EventTable WHERE title='" + searchParameter + "';");
-			}
+			rs = st.executeQuery("SELECT * FROM EventTable WHERE title='" + searchParameter + "';");
+			// get the list of eventIDS
 			while (rs.next()) {
 				int eventID = rs.getInt("eventID");
-				Event event = createEventObject(eventID);
+				Event event = createEventObject(eventID, conn);
 				events.add(event);
 			}
 		} catch (SQLException sqle) {
-			System.out.println("sqle: " + sqle.getMessage());
+			sqle.printStackTrace();
+			System.out.println("sqle: " + sqle.getMessage() + "sdsd");
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println("cnfe: " + cnfe.getMessage());
 		} finally {
