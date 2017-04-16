@@ -4,6 +4,7 @@ import java.util.Date;
 
 import BaseClass.Event;
 import BaseClass.User;
+import Message;
 
 public class PostManager {
 	String currUser;
@@ -50,10 +51,12 @@ public class PostManager {
 		image = mImage;
 	}
 
-	public void post() {
-		/* add code here */
+	public EventMessage post() {	 
 		Event newEvent = new Event(title, location, description, date, coordinateX, coordinateY, currUser);
+		User user = dm.getUser(currUser);
 		dm.addEvent(newEvent);
+		EventMessage em = new EventMessage(newEvent, user);
+		return em;
 	}
 
 }
