@@ -31,8 +31,9 @@ public class RequestManager{
 			br = request.getReader();
 			pw = response.getWriter();
 			st = br.readLine();
+			System.out.println(st);
 			receiveObj = new JsonParser().parse(st).getAsJsonObject();
-			String requestType = receiveObj.get("requsetType").getAsString();
+			String requestType = receiveObj.get("requestType").getAsString();
 			switch(requestType){
 			case "Login":
 				LoginManager lm = new LoginManager(receiveObj.get("username").getAsString(), receiveObj.get("password").getAsString());
@@ -41,6 +42,7 @@ public class RequestManager{
 				if(tempLM.ifSuccess){
 					currentUser = receiveObj.get("username").getAsString();
 				}
+				break;
 			case "SignUp":
 				SignupManager sm = new SignupManager(receiveObj.get("username").getAsString(), receiveObj.get("password").getAsString(), receiveObj.get("fname").getAsString(),receiveObj.get("lname").getAsString());
 				if(sm.signup()){
@@ -50,21 +52,30 @@ public class RequestManager{
 				else{
 					sendMessage = new LoginMessage(false);
 				}
+				break;
 			case "Post":
-				Date date = new Date(receiveObj.get("year").getAsInt(), receiveObj.get("month").getAsInt(),receiveObj.get("date").getAsInt(),receiveObj.get("hour").getAsInt(),receiveObj.get("min").getAsInt());
-				PostManager postManager = new PostManager(currentUser, date, receiveObj.get("mX").getAsFloat(), receiveObj.get("mY").getAsFloat());
+				System.out.println(currentUser);
+				Date date = new Date(receiveObj.get("year").getAsInt(), receiveObj.get("month").getAsInt(),receiveObj.get("date").getAsInt(),receiveObj.get("hours").getAsInt(),receiveObj.get("minutes").getAsInt());
+				PostManager postManager = new PostManager(currentUser, date, receiveObj.get("locationX").getAsFloat(), receiveObj.get("locationY").getAsFloat());
 				//Need more
-				
+				postManager.setDescription(receiveObj.get("description").getAsString());
+				postManager.setTitle(receiveObj.get("title").getAsString());
+				postManager.setLocation(receiveObj.get("location").getAsString());
+				sendMessage = postManager.post();
+				break;
 			case "Map":
 				MapManager mapManager = new MapManager(currentUser);
 				sendMessage = mapManager.populateMap();
-				
+				break;
 			case "Search":
 				SearchManager searchManager = new SearchManager(receiveObj.get("searchType").getAsString(), receiveObj.get("searchText").getAsString());
 				sendMessage = searchManager.search();
+				break;
 			case "RequestEvent":
+				break;
 			case "Profile":
 				ProfileManager profileManager = new ProfileManager(currentUser);
+				break;
 			}
 			Gson gson = new Gson();
 			String sendString = gson.toJson(sendMessage);
