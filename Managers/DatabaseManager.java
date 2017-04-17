@@ -136,7 +136,7 @@ public class DatabaseManager {
 				String description = rs.getString("description");
 				String dateString = rs.getString("dateEvent");
 				// parse date data
-				SimpleDateFormat formatter = new SimpleDateFormat("MM.dd.yyyy HH:mm");
+				SimpleDateFormat formatter = new SimpleDateFormat("MM.dd.yy HH:mm");
 				Date date = formatter.parse(dateString);
 				int coordinateX = rs.getInt("coordinateX");
 				int coordinateY = rs.getInt("coordinateY");
@@ -366,7 +366,7 @@ public class DatabaseManager {
 			event = createEventObject(eventID, conn);
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
-			System.out.println("sqle: " + sqle.getMessage() + "sdsd");
+			System.out.println("sqle: " + sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println("cnfe: " + cnfe.getMessage());
 		} finally {
@@ -431,7 +431,7 @@ public class DatabaseManager {
 				String description = rs.getString("description");
 				String dateString = rs.getString("dateEvent");
 				// parse date data
-				SimpleDateFormat formatter = new SimpleDateFormat("MM.dd.yyyy HH:mm");
+				SimpleDateFormat formatter = new SimpleDateFormat("MM.dd.yy HH:mm");
 				Date date = formatter.parse(dateString);
 				int coordinateX = rs.getInt("coordinateX");
 				int coordinateY = rs.getInt("coordinateY");
@@ -484,7 +484,7 @@ public class DatabaseManager {
 			String location = newEvent.getLocationString();
 			String description = newEvent.getDescription();
 			Date date = newEvent.getDate();
-			SimpleDateFormat formatter = new SimpleDateFormat("MM.dd.yyyy HH:mm");
+			SimpleDateFormat formatter = new SimpleDateFormat("MM.dd.yy HH:mm");
 			String dateString = formatter.format(date);
 			float coordinateX = newEvent.getCoordinateX();
 			float coordinateY = newEvent.getCoordinateY();
@@ -581,7 +581,7 @@ public class DatabaseManager {
 			}
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
-			System.out.println("sqle: " + sqle.getMessage() + "sdsd");
+			System.out.println("sqle: " + sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println("cnfe: " + cnfe.getMessage());
 		} finally {
@@ -626,7 +626,7 @@ public class DatabaseManager {
 			}
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
-			System.out.println("sqle: " + sqle.getMessage() + "sdsd");
+			System.out.println("sqle: " + sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println("cnfe: " + cnfe.getMessage());
 		} finally {
@@ -669,7 +669,7 @@ public class DatabaseManager {
 			preparedStmt.executeUpdate();
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
-			System.out.println("sqle: " + sqle.getMessage() + "sdsd");
+			System.out.println("sqle: " + sqle.getMessage());
 		} catch (ClassNotFoundException cnfe) {
 			System.out.println("cnfe: " + cnfe.getMessage());
 		} finally {
