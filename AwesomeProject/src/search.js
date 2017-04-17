@@ -13,33 +13,58 @@ import {
     TouchableOpacity,
     TextInput
 } from 'react-native';
-import {Router, Scene} from 'react-native-router-flux';
+import {Actions} from 'react-native-router-flux';
 
 export default class Search extends Component {
-  render() {
+    
+    render() {
     return (
       <View style={styles.container}>
+            {/*Wenqi, add the search bar and checkbox buttons here */}
+
             <View style={styles.titleContainer}>
-                <Text style={styles.title}>EventSC</Text>
+                <Text style={styles.title}>Results: </Text>
             </View>
             
-            <View style={styles.formContainer}>
-                <TextInput style={styles.input}
-                    placeholder="username"
-                    placeholderTextColor="rgba(255,255,255,0.7)"
+            {/* add logic to distingish which onPress() will be triggered (profiles or events) */}
+            {/* how to pass arraylist of events with user info?...*/}
+            <View style={styles.resultsContainer}>
+            <TouchableOpacity
+            onPress={() => Actions.profile({
+                                           fName:"hello world",
+                                           lName: "",
+                                           username: ""
+                                           })}
             
-                />
-            <TextInput
-            placeholder="password"
-            placeholderTextColor="rgba(255,255,255,0.7)"
-            secureTextEntry
-            style={styles.input}
-            />
+            style={styles.buttonsContainer}>
+            <Text style={styles.button}>EVENT NAME</Text>
+            <Text style={styles.button}>planner name</Text>
+            <Text style={styles.button}>DATE & time</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity
+            onPress={() => Actions.event({
+                                         title: "",
+                                         posterName: "",
+                                         location: "",
+                                         description: "",
+                                         coordinateX: "",
+                                         coordinateY: "",
+                                         rsvp: "",
+                                         month: "",
+                                         date: "",
+                                         hours: "",
+                                         minutes: "",
+                                         year: "",
+                                        })}
+            style={styles.buttonsContainer}>
+            <Text style={styles.button}>EVENT NAME</Text>
+            <Text style={styles.button}>planner name</Text>
+            <Text style={styles.button}>DATE & time</Text>
+            </TouchableOpacity>
+            
             </View>
             
-            <View style={styles.optionsContainer}>
-               <TouchableOpacity style={styles.buttonsContainer}><Text style={styles.button}>Login</Text></TouchableOpacity>
-            </View>
      </View>
 
             
@@ -56,17 +81,20 @@ const styles = StyleSheet.create({
   },
                                  title: {
                                  color: '#FFF',
-                                 fontSize: 30,
-                                 
+                                 fontSize: 15,
                                  },
-                                 optionsContainer: {
+                                 titleContainer: {
+                                 alignItems: 'flex-start'
+                                 },
+                                 resultsContainer: {
                                  padding: 20,
                                  },
                                  buttonsContainer: {
-                                    backgroundColor: '#2980b9',
-                                 padding: 10,
-                                 
-                                 
+                                 backgroundColor: '#2980b9',
+                                 width: 200,
+                                 height: 60,
+                                 margin: 10,
+                                 alignSelf: 'stretch',
                                  },
                                  formContainer: {
                                  margin: 20,

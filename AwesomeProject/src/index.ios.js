@@ -24,6 +24,7 @@ import Post from './post.js';
 import Profile from './profile.js';
 import Map from './map.js';
 import Event from './event.js';
+import MyEvents from './myEvents.js';
 
 export default class AwesomeProject extends Component {
     render() {
@@ -91,6 +92,13 @@ export default class AwesomeProject extends Component {
                 key="event"
                 component={Event}
                 title="Event"
+                
+                />
+                
+                <Scene
+                key="myEvents"
+                component={MyEvents}
+                title="myEvents"
                 
                 />
                 

@@ -41,6 +41,10 @@ export default class Main extends Component {
             <TouchableOpacity
             onPress={() => Actions.map()}
             style={styles.buttonsContainer}><Text style={styles.button}>Map</Text></TouchableOpacity>
+            
+            <TouchableOpacity
+            onPress={() => Actions.search()}
+            style={styles.buttonsContainer}><Text style={styles.button}>Search</Text></TouchableOpacity>
             </View>
      </View>
 

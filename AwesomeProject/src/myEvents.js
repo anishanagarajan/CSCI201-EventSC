@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 
-export default class Profile extends Component {
+export default class MyEvents extends Component {
     constructor () {
         super();
         
@@ -34,14 +34,13 @@ export default class Profile extends Component {
             
             {/*state needs to be changed to props for networking*/}
             <View style={styles.titleContainer}>
-            <Text style={styles.title}>{this.state.fName} {this.state.lName}</Text>
-            <Text style={styles.subTitle}>{this.state.username}</Text>
+            <Text style={styles.title}>{}</Text>
             </View>
             
             
             <View style={styles.optionsContainer}>
                 <TouchableOpacity
-                onPress={() => Actions.myEvents()}
+                onPress={() => Actions.pastEvents()}
                 style={styles.buttonsContainer}><Text style={styles.button}>My Events</Text></TouchableOpacity>
             
                 <TouchableOpacity
@@ -112,4 +111,4 @@ const styles = StyleSheet.create({
                                  
   });
 
-module.exports = Profile;
+module.exports = MyEvents;
