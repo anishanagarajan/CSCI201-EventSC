@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
                                  flex: 1,
                                  justifyContent: 'center',
                                  alignItems: 'center',
-                                 backgroundColor: '#3498db',
+                                 backgroundColor: '#BD2031',
                                  },
                                  title: {
                                  color: '#FFF',
@@ -103,9 +103,8 @@ const styles = StyleSheet.create({
                                  padding: 20,
                                  },
                                  buttonsContainer: {
-                                 backgroundColor: '#2980b9',
+                                 backgroundColor: '#DAA520',
                                  padding: 10,
-                                 
                                  
                                  },
                                  formContainer: {

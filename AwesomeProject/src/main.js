@@ -75,25 +75,24 @@ export default class Main extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#3498db',
-  },
+                                 container: {
+                                 flex: 1,
+                                 justifyContent: 'center',
+                                 alignItems: 'center',
+                                 backgroundColor: '#BD2031',
+                                 },
                                  title: {
-                                 color: '#FFF',
-                                 fontSize: 30,
+                                 color: '#DAA520',
+                                 fontSize: 50,
                                  
                                  },
                                  optionsContainer: {
                                  padding: 20,
                                  },
                                  buttonsContainer: {
-                                    backgroundColor: '#2980b9',
+                                 backgroundColor: '#DAA520',
                                  padding: 10,
-                                 
-                                 
+                                 margin: 15,
                                  },
                                  formContainer: {
                                  margin: 20,
@@ -106,8 +105,11 @@ const styles = StyleSheet.create({
                                  color: '#FFF',
                                  paddingHorizontal: 10,
                                  },
-                                 
-                                
+                                 button: {
+                                 color: '#FFF',
+                                 textAlign: 'center',
+                                 fontSize: 20,
+                                 },
                                  
                                  
   });

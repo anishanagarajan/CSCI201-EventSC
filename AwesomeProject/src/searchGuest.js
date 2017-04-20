@@ -106,9 +106,7 @@ export default class SearchGuest extends Component {
                 placeholderTextColor="rgba(255,255,255,0.7)"
                 
                 />
-                <TouchableOpacity
-                onPress={() => this.onSearch() }
-                style = {styles.buttonsContainer} ><Text style={styles.button}>Search</Text></TouchableOpacity>
+            <View style={styles.searchContainer}>
                 </View>
                 <View style={styles.checkboxContainer}>
                 <CheckBox
@@ -121,10 +119,12 @@ export default class SearchGuest extends Component {
                 checked={this.state.titleChecked}
                 onChange={(checked) => this.titlePressed()}
                 />
+                <TouchableOpacity
+                onPress={() => this.onSearch() }
+                style = {styles.buttonsContainer} ><Text style={styles.button}>Search</Text></TouchableOpacity>
                 </View>
-                <View style={styles.titleContainer}>
-                <Text style={styles.title}>Results:</Text>
-                </View>
+            </View>
+                
                 
                 <ListView
                 dataSource={this.state.dataSource}
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
                                  flex: 1,
                                  justifyContent: 'center',
                                  alignItems: 'center',
-                                 backgroundColor: '#3498db',
+                                 backgroundColor: '#BD2031',
                                  },empty: {
                                  height: 100,
                                  },
@@ -218,11 +218,12 @@ const styles = StyleSheet.create({
                                  padding: 20,
                                  },
                                  buttonsContainer: {
-                                 backgroundColor: '#2980b9',
-                                 width: 200,
-                                 height: 60,
-                                 margin: 10,
+                                 backgroundColor: '#DAA520',
+                                 width: 80,
+                                 height: 30,
+                                 marginLeft: 40,
                                  alignSelf: 'stretch',
+                                 alignItems: 'center',
                                  },
                                  formContainer: {
                                  margin: 20,
@@ -235,10 +236,19 @@ const styles = StyleSheet.create({
                                  color: '#FFF',
                                  paddingHorizontal: 10,
                                  },
-                                 
-                                 
-                                 
-                                 
+                                 button: {
+                                 color: '#FFF',
+                                 textAlign: 'center',
+                                 fontSize: 18,
+                                 },
+                                 searchContainer: {
+                                 flexDirection: 'row',
+                                 alignSelf: 'stretch',
+                                 },
+                                 checkboxContainer: {
+                                 flexDirection: 'row',
+                                 },
+
                                  });
 
 module.exports = SearchGuest;

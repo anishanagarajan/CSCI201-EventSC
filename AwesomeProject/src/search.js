@@ -199,11 +199,11 @@ export default class Search extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#3498db',
+                                 container: {
+                                 flex: 1,
+                                 justifyContent: 'center',
+                                 alignItems: 'center',
+                                 backgroundColor: '#BD2031',
                                  },empty: {
                                  height: 100,
                                  },
@@ -218,11 +218,12 @@ const styles = StyleSheet.create({
                                  padding: 20,
                                  },
                                  buttonsContainer: {
-                                 backgroundColor: '#2980b9',
-                                 width: 200,
-                                 height: 60,
-                                 margin: 10,
+                                 backgroundColor: '#DAA520',
+                                 width: 80,
+                                 height: 30,
+                                 marginLeft: 40,
                                  alignSelf: 'stretch',
+                                 alignItems: 'center',
                                  },
                                  formContainer: {
                                  margin: 20,
@@ -235,8 +236,19 @@ const styles = StyleSheet.create({
                                  color: '#FFF',
                                  paddingHorizontal: 10,
                                  },
-                                 
-                                
+                                 button: {
+                                 color: '#FFF',
+                                 textAlign: 'center',
+                                 fontSize: 18,
+                                 },
+                                 searchContainer: {
+                                 flexDirection: 'row',
+                                 alignSelf: 'stretch',
+                                 },
+                                 checkboxContainer: {
+                                 flexDirection: 'row',
+                                 },
+    
                                  
                                  
   });

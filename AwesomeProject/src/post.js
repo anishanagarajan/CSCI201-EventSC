@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
-    backgroundColor: '#3498db',
+    backgroundColor: '#BD2031',
     flexDirection: 'column',
   },
                                  title: {
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
                                  alignItems: 'center',
                                  },
                                  buttonsContainer: {
-                                    backgroundColor: '#2980b9',
+                                    backgroundColor: '#DAA520',
                                  padding: 10,
                                  width: 70,
                                  height: 40,

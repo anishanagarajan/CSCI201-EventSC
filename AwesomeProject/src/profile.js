@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#3498db',
+    backgroundColor: '#BD2031',
   },
                                  empty: {
                                  height: 100,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
                                  buttonsContainer: {
                                  width: 250,
                                  height: 85,
-                                 backgroundColor: '#2980b9',
+                                 backgroundColor: '#DAA520',
                                  padding: 10,
                                  margin: 25,
                                  },
