@@ -3,41 +3,53 @@
  * https://github.com/facebook/react-native
  * @flow
  */
+'use strict';
 
 import React, { Component } from 'react';
 import {
-MapView,
-  StyleSheet,
-  Text,
-  View,
+    StyleSheet,
+    Text,
+    View,
     TouchableOpacity,
     TextInput
 } from 'react-native';
 
 import {Actions} from 'react-native-router-flux';
-//import MapView from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 
 export default class Map extends Component {
     constructor () {
         super();
+        
     }
     
-  render() {
-    return (
-            <View style={styles.container}>
-      <MapView style={styles.map}
-            showUserLocation={true}
-             region= {{
-            latitude: 34.0207044,
-            longitude: -118.284963,
-            latitudeDelta: 0.0222,
-            longitudeDelta: 0.021
-            }}
-     />
-</View>
-            
-    );
-  }
+    render() {
+        return (
+                <View style={styles.container}>
+                
+                <MapView style={styles.map}
+                showUserLocation={true}
+                initialRegion= {{
+                latitude: 34.0207044,
+                longitude: -118.284963,
+                latitudeDelta: 0.0222,
+                longitudeDelta: 0.021
+                }}
+                >
+                <MapView.Marker
+                coordinate={{latitude: 34.78825,
+                longitude: -118.4324}}
+                title={"title"}
+                description={"description"}
+                
+                />
+                </MapView>
+                
+                
+                </View>
+                
+                );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -59,6 +71,9 @@ const styles = StyleSheet.create({
                                  },
                                  
                                  
-  });
+                                 });
+
+
 
 module.exports = Map;
+

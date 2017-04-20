@@ -25,6 +25,9 @@ import Profile from './profile.js';
 import Map from './map.js';
 import Event from './event.js';
 import MyEvents from './myEvents.js';
+import EventGuest from './eventGuest.js';
+import SearchGuest from './searchGuest.js';
+import MainGuest from './mainGuest.js';
 
 export default class AwesomeProject extends Component {
     render() {
@@ -102,6 +105,26 @@ export default class AwesomeProject extends Component {
                 
                 />
                 
+                <Scene
+                key="searchGuest"
+                component={SearchGuest}
+                title="Guest Search"
+                
+                />
+                
+                <Scene
+                key="eventGuest"
+                component={EventGuest}
+                title="Event"
+                
+                />
+                
+                <Scene
+                key="mainGuest"
+                component={MainGuest}
+                title="Main"
+                
+                />
                 
                 </Router>
               ) ;

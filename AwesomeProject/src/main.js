@@ -21,6 +21,27 @@ import Post from './post.js';
 import Map from './map.js';
 
 export default class Main extends Component {
+    async onProfilePressed(){
+        try{
+            let response = await fetch('http://10.120.105.99:8080/FinalP/GeneralServlet', {
+                                       method: 'POST',
+                                       headers: {
+                                       'Accept': 'application/json',
+                                       'Content-Type': 'application/json',
+                                       },
+                                       body: JSON.stringify({
+                                                            requestType: 'Profile',
+                                                            })
+                                       });
+            let res = await response.text();
+            console.log(res);
+            Actions.profile({info:res});
+            
+        }catch(error){
+            console.error(error);
+        }
+    }
+    
     
   render() {
     return (
@@ -31,7 +52,7 @@ export default class Main extends Component {
             
             <View style={styles.optionsContainer}>
             <TouchableOpacity
-            onPress={() => Actions.profile({eventId:"hello world"})}
+            onPress={() => this.onProfilePressed() }
             style={styles.buttonsContainer}><Text style={styles.button}>Profile</Text></TouchableOpacity>
             
             <TouchableOpacity
@@ -43,7 +64,7 @@ export default class Main extends Component {
             style={styles.buttonsContainer}><Text style={styles.button}>Map</Text></TouchableOpacity>
             
             <TouchableOpacity
-            onPress={() => Actions.search()}
+            onPress={() => Actions.search({anisha:"anisha"})}
             style={styles.buttonsContainer}><Text style={styles.button}>Search</Text></TouchableOpacity>
             </View>
      </View>

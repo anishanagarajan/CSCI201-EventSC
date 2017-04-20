@@ -44,7 +44,7 @@ export default class Post extends Component {
     //networking
     async onSubmitPressed(){
         try{
-            let response = await fetch('http://10.120.108.158:8080/FinalP/GeneralServlet', {
+            let response = await fetch('http://10.120.105.99:8080/FinalP/GeneralServlet', {
                                        method: 'POST',
                                        headers: {
                                        'Accept': 'application/json',

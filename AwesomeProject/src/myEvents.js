@@ -16,16 +16,30 @@ import {
 import {Actions} from 'react-native-router-flux';
 
 export default class MyEvents extends Component {
-    constructor () {
-        super();
-        
-        this.state = {
-        fName: "FIRSTNAME",
-        lName: "LASTNAME",
-        username: "@username",
-        
+    async goToEvent(eventID){
+        try{
+            let response = await fetch('http://10.120.105.99:8080/FinalP/GeneralServlet', {
+                                       method: 'POST',
+                                       headers: {
+                                       'Accept': 'application/json',
+                                       'Content-Type': 'application/json',
+                                       },
+                                       body: JSON.stringify({
+                                                            requestType: 'Event',
+                                                            eventID: eventID,
+                                                            })
+                                       });
+            let res = await response.text();
+            console.log(res);
+            var obj = JSON.parse(res);
+            Actions.event({eventInfo: res});
+            
+        }catch(error){
+            console.error(error);
         }
     }
+    
+
     
   render() {
     return (
@@ -34,22 +48,22 @@ export default class MyEvents extends Component {
             
             {/*state needs to be changed to props for networking*/}
             <View style={styles.titleContainer}>
-            <Text style={styles.title}>{}</Text>
+            <Text style={styles.title}></Text>
             </View>
             
             
             <View style={styles.optionsContainer}>
                 <TouchableOpacity
-                onPress={() => Actions.pastEvents()}
-                style={styles.buttonsContainer}><Text style={styles.button}>My Events</Text></TouchableOpacity>
+            onPress={() => this.goToEvent(this.props.IDs[0])}
+            style={styles.buttonsContainer}><Text style={styles.button}>{this.props.events[0]}</Text></TouchableOpacity>
             
                 <TouchableOpacity
-                onPress={() => Actions.myEvents()}
-                style={styles.buttonsContainer}><Text style={styles.button}>Upcoming Events</Text></TouchableOpacity>
+                onPress={() => this.goToEvent(this.props.IDs[1])}
+            style={styles.buttonsContainer}><Text style={styles.button}>{this.props.events[1]}</Text></TouchableOpacity>
             
                 <TouchableOpacity
-                onPress={() => Actions.upcomingEvents()}
-                style={styles.buttonsContainer}><Text style={styles.button}>Past Events</Text></TouchableOpacity>
+                onPress={() => this.goToEvent(this.props.IDs[2])}
+            style={styles.buttonsContainer}><Text style={styles.button}>{this.props.events[2]}</Text></TouchableOpacity>
             </View>
             
         </View>

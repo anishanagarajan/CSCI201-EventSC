@@ -16,14 +16,22 @@ import {
 import {Actions} from 'react-native-router-flux';
 
 export default class Profile extends Component {
-    constructor () {
-        super();
+    constructor (props) {
+        super(props);
         
+        var obj = JSON.parse(this.props.info);
+
         this.state = {
-        fName: "FIRSTNAME",
-        lName: "LASTNAME",
-        username: "@username",
-        
+        fname: obj.fname,
+        lname: obj.lname,
+        username: obj.username,
+        myEvents: obj.myEvents,
+        myEventIDs: obj.myEventIDs,
+        upcomingEvents: obj.upcomingEvents,
+        upcomingEventIDs: obj.upcomingEventIDs,
+        pastEvents: obj.previousEvents,
+        pastEventIDs: obj.previousEventIDs,
+
         }
     }
     
@@ -34,22 +42,25 @@ export default class Profile extends Component {
             
             {/*state needs to be changed to props for networking*/}
             <View style={styles.titleContainer}>
-            <Text style={styles.title}>{this.state.fName} {this.state.lName}</Text>
+            <Text style={styles.title}>{this.state.fname} {this.state.lname}</Text>
             <Text style={styles.subTitle}>{this.state.username}</Text>
             </View>
             
             
             <View style={styles.optionsContainer}>
                 <TouchableOpacity
-                onPress={() => Actions.myEvents()}
+            onPress={() => Actions.myEvents({events: this.state.myEvents,
+                                            IDs: this.state.myEventIDs})}
                 style={styles.buttonsContainer}><Text style={styles.button}>My Events</Text></TouchableOpacity>
             
                 <TouchableOpacity
-                onPress={() => Actions.myEvents()}
+                onPress={() => Actions.myEvents({events: this.state.upcomingEvents,
+                                                IDs: this.state.upcomingEventIDs})}
                 style={styles.buttonsContainer}><Text style={styles.button}>Upcoming Events</Text></TouchableOpacity>
             
                 <TouchableOpacity
-                onPress={() => Actions.upcomingEvents()}
+                onPress={() => Actions.myEvents({events: this.state.pastEvents,
+                                                IDs: this.state.pastEventIDs})}
                 style={styles.buttonsContainer}><Text style={styles.button}>Past Events</Text></TouchableOpacity>
             </View>
             

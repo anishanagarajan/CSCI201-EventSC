@@ -63,3 +63,4 @@ const styles = StyleSheet.create({
 
 
 module.export = Tabs;
+  

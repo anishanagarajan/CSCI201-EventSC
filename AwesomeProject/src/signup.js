@@ -23,13 +23,14 @@ export default class Signup extends Component {
         fname: "",
         lname: "",
         username: "",
-        password: ""
+        password: "",
+        errorHeight:0
         }
     }
     
     async onLoginPressed(){
         try{
-            let response = await fetch('http://10.120.108.158:8080/FinalP/GeneralServlet', {
+            let response = await fetch('http://10.120.105.99:8080/FinalP/GeneralServlet', {
                                        method: 'POST',
                                        headers: {
                                        'Accept': 'application/json',
@@ -50,7 +51,7 @@ export default class Signup extends Component {
                 Actions.main();
             }
             else {
-                //show error
+                this.state.errorHeight=50;
             }
             
         }catch(error){
@@ -100,6 +101,7 @@ export default class Signup extends Component {
                 
                 </View>
                 
+                
                 <View style={styles.optionsContainer}>
                 <TouchableOpacity
                 onPress={() => this.onLoginPressed()}
@@ -144,7 +146,6 @@ const styles = StyleSheet.create({
                                  color: '#FFF',
                                  paddingHorizontal: 10,
                                  },
-                                 
                                  
                                  
                                  

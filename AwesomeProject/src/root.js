@@ -29,7 +29,7 @@ export default class Root extends Component {
             onPress={() => Actions.signup()}
             style={styles.buttonsContainer}><Text style={styles.button}>Sign Up</Text></TouchableOpacity>
                 <TouchableOpacity
-            onPress={() => Actions.main()}
+            onPress={() => Actions.mainGuest()}
             style={styles.buttonsContainer}><Text style={styles.button}>Continue as Guest</Text></TouchableOpacity>
             </View>
      </View>

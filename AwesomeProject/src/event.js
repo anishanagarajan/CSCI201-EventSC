@@ -16,53 +16,43 @@ import {
 import {Actions} from 'react-native-router-flux';
 
 export default class Event extends Component {
-    constructor() {
-        super()
-        var eventMessage = this.props.eventInfo;
-        var obj = JSON.parse(eventMessage);
+    
+    constructor (props) {
+        super(props);
         
+        var obj = JSON.parse(this.props.eventInfo);
+          
         this.state = {
-        eventName: obj.title,
-        host: obj.posterName,
-            
-        };
+          title: obj.title,
+        location: obj.location,
+        date: obj.date,
+        time: obj.time,
+        eventID: obj.eventID,
+              description: obj.description,
+              posterName: obj.posterName,
+              posterID: obj.posterID,
+              coordinateX: obj.coordinateX,
+              coordinateY: obj.coordinateY,
+              posterRating: obj.posterRating
+        }
         
-        
-    }
-    
-    
+        }
+
+
     //networking
-    async onLoginPressed(){
+    async sendRSVP(){
         try{
-            let response = await fetch('http://10.120.108.158:8080/FinalP/GeneralServlet', {
+            let response = await fetch('http://10.120.105.99:8080/FinalP/GeneralServlet', {
                                        method: 'POST',
                                        headers: {
                                        'Accept': 'application/json',
                                        'Content-Type': 'application/json',
                                        },
                                        body: JSON.stringify({
-                                                            requestType: 'Event',
-                                                            eventName: this.state.eventName,
-                                                            month: this.state.month,
-                                                            date: this.state.date,
-                                                            year: this.state.year,
-                                                            hours: this.state.hours,
-                                                            minutes: this.state.minutes,
-                                                            location: this.state.location,
-                                                            description: this.state.description,
-                                                            category: this.state.category,
+                                                            requestType: 'RSVP',
+                                                            eventID: this.state.eventID,
                                                             })
                                        });
-            let res = await response.text();
-            console.log(res);
-            var obj = JSON.parse(res);
-            if (obj.ifSuccess) {
-                console.log("created event!");
-                //Actions.event();
-            }
-            else {
-                //show error
-            }
             
         }catch(error){
             console.error(error);
@@ -73,22 +63,17 @@ export default class Event extends Component {
         return (
         <View style={styles.container}>
                 <View style={styles.titleContainer}>
-                <Text style={styles.title}>{this.state.eventName}</Text>
+                <Text style={styles.title}>{this.state.title}</Text>
+                <Text style={styles.subTitle}>{this.state.posterName}</Text>
+                <Text style={styles.subTitle}>{this.state.location}</Text>
+                <Text style={styles.subTitle}>{this.state.date}</Text>
+                <Text style={styles.subTitle}>{this.state.time}</Text>
+                <Text style={styles.subTitle}>{this.state.description}</Text>
                 </View>
-                
-                <View style={styles.optionsContainer}>
+
                 <TouchableOpacity
-                //onPress={() => Actions.pastEvents()}
-                style={styles.buttonsContainer}><Text style={styles.button}>Past</Text></TouchableOpacity>
-                
-                <TouchableOpacity
-                //onPress={() => Actions.myEvents()}
-                style={styles.buttonsContainer}><Text style={styles.button}>My Events</Text></TouchableOpacity>
-                
-                <TouchableOpacity
-                //onPress={() => Actions.upcomingEvents()}
-                style={styles.buttonsContainer}><Text style={styles.button}>Upcoming</Text></TouchableOpacity>
-                </View>
+                onPress={() => this.sendRSVP()}
+                style={styles.buttonsContainer}><Text style={styles.button}>RSVP</Text></TouchableOpacity>
                 
                 </View>
                 );
